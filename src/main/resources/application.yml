@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/seller-panel
+    username: ${DB_USER:}
+    password: ${DB_PASS:}
+    show-sql: true
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: validate
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+      springframework:
+        web: debug
+    com:
+      seller:
+        panel: info
+server:
+  port: ${SERVER_PORT:8081}

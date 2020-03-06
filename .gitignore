@@ -30,3 +30,7 @@ hs_err_pid*
 
 # Brackets
 .DS_Store
+
+# IntelliJ
+*/.idea
+*.iml

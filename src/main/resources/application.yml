@@ -1,13 +1,16 @@
 spring:
   datasource:
+    driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/seller-panel
-    username: ${DB_USER:}
-    password: ${DB_PASS:}
+    username: ${DB_USER:vishal}
+    password: ${DB_PASS:123456@qwe}
     show-sql: true
     jpa:
       show-sql: true
       hibernate:
         ddl-auto: validate
+flyway:
+  locations: classpath:/db/migration
 logging:
   level:
     org:

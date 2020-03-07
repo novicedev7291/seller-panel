@@ -12,7 +12,6 @@ public class Companies {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false)
     private Long id;
 
     private String name;

@@ -7,30 +7,22 @@ import java.time.Instant;
 
 @Entity
 @Data
-@Table(name = "users")
-public class Users {
+@Table(name = "permissions")
+public class Permissions {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    private String name;
 
-    @Column(name = "last_name")
-    private String lastName;
+    private String code;
 
-    private String email;
+    private String description;
 
-    private String phone;
+    private String verb;
 
-    @Column(length = 60)
-    private String password;
-
-    private Boolean active = true;
-
-    @Column(name = "company_id")
-    private String companyId;
+    private String link;
 
     @Column(name = "created_on")
     private Instant createdOn = Instant.now();

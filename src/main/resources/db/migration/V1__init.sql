@@ -91,7 +91,6 @@ CREATE TABLE IF NOT EXISTS companies (
   created_on TIMESTAMP NULL DEFAULT NULL,
   updated_on TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (id));
-CREATE UNIQUE INDEX idx_companies_code ON companies(code);
 
 -- -----------------------------------------------------
 -- Table users
@@ -102,9 +101,9 @@ CREATE TABLE IF NOT EXISTS users (
   first_name VARCHAR(200) NOT NULL,
   last_name VARCHAR(200) NOT NULL,
   email VARCHAR(200) NOT NULL,
-  phone VARCHAR(50) NOT NULL,
+  phone VARCHAR(50) NULL,
   password VARCHAR(100) NOT NULL,
-  active BOOLEAN NULL DEFAULT true,
+  active BOOLEAN NOT NULL DEFAULT true,
   company_id BIGINT NOT NULL,
   created_on TIMESTAMP NULL DEFAULT NULL,
   updated_on TIMESTAMP NULL DEFAULT NULL,
@@ -118,11 +117,11 @@ CREATE TABLE IF NOT EXISTS roles (
   id BIGSERIAL NOT NULL,
   name VARCHAR(100) NOT NULL,
   company_id BIGINT NOT NULL,
-  is_deletable BOOLEAN NULL DEFAULT true,
+  is_deletable BOOLEAN NOT NULL DEFAULT true,
+  active BOOLEAN NOT NULL DEFAULT true,
   created_on TIMESTAMP NULL DEFAULT NULL,
   updated_on TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (id));
-CREATE UNIQUE INDEX idx_roles_name ON roles(name);
 
 -- -----------------------------------------------------
 -- Table user_roles
@@ -130,8 +129,8 @@ CREATE UNIQUE INDEX idx_roles_name ON roles(name);
 DROP TABLE IF EXISTS user_roles;
 CREATE TABLE IF NOT EXISTS user_roles (
   id BIGSERIAL NOT NULL,
-  role_id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
+  role_id BIGINT NOT NULL,
   created_on TIMESTAMP NULL DEFAULT NULL,
   updated_on TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (id),
@@ -156,17 +155,13 @@ CREATE TABLE IF NOT EXISTS permissions (
   code VARCHAR(45) NOT NULL,
   description VARCHAR(200) NOT NULL,
   verb VARCHAR(10) NOT NULL,
-  is_deletable BOOLEAN NULL DEFAULT true,
   link VARCHAR(200) NOT NULL,
-  role_id INT NOT NULL,
   created_on TIMESTAMP NULL DEFAULT NULL,
   updated_on TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (id));
 
-  CREATE UNIQUE INDEX idx_permissions_company_id_name ON permissions(name);
-
 -- -----------------------------------------------------
--- Table user_roles
+-- Table role_permissions
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS role_permissions;
 CREATE TABLE IF NOT EXISTS role_permissions (

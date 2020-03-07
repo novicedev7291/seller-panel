@@ -2,8 +2,8 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/seller-panel
-    username: ${DB_USER:vishal}
-    password: ${DB_PASS:123456@qwe}
+    username: ${DB_USER:seller}
+    password: ${DB_PASS:seller}
     show-sql: true
     jpa:
       show-sql: true
@@ -23,3 +23,11 @@ logging:
         panel: info
 server:
   port: ${SERVER_PORT:8081}
+---
+spring:
+  profiles: test
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:sellerpanel;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+flyway:
+  locations: classpath:/db/migration

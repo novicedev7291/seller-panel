@@ -1,6 +1,6 @@
-FROM java:8
+FROM openjdk:8-alpine
 
-COPY target/*.jar /opt/seller-panel.jar
+ADD target/seller-panel.jar /opt/
 
 EXPOSE 8081
 

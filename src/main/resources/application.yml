@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/seller-panel
-    username: ${DB_USER:}
-    password: ${DB_PASS:}
+    url: ${DB_HOST:jdbc:postgresql://localhost:5432/seller-panel}
+    username: ${DB_USER:default}
+    password: ${DB_PASS:default}
     show-sql: true
     jpa:
       show-sql: true

@@ -8,6 +8,11 @@ spring:
       show-sql: true
       hibernate:
         ddl-auto: validate
+  cache:
+    type: redis
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
 flyway:
   locations: classpath:/db/migration
 logging:

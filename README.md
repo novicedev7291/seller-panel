@@ -45,6 +45,13 @@ ctrl+q
 
 ```
 
+For docker compose, you don't need `DB_HOST` environment variable as its added to support the local development, you can just export variable `IP` instead which would be your network `IP` or machine ip on which your db is running, since compose is supposed to be used for local development, the port and whole jdbc url is hardcoded into yml file except the ip part, so just:
+
+```
+export IP=192.168.1.1
+```
+
+
 ## Run using docker-compose
 
 ```

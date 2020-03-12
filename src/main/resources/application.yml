@@ -1,9 +1,8 @@
 spring:
   datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/seller-panel
-    username: ${DB_USER:seller}
-    password: ${DB_PASS:seller}
+    url: ${DB_HOST:jdbc:postgresql://localhost:5432/seller-panel}
+    username: ${DB_USER:default}
+    password: ${DB_PASS:default}
     show-sql: true
     jpa:
       show-sql: true

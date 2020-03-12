@@ -19,9 +19,6 @@ public class Roles {
     @Column(name = "company_id")
     private String companyId;
 
-    @Column(name = "is_deletable")
-    private Boolean isDeletable = true;
-
     private Boolean active = true;
 
     @Column(name = "created_on")

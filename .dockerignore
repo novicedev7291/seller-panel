@@ -1,0 +1,8 @@
+.mvn
+.gitignore
+.mvnw
+mvnw.cmd
+README.md
+Dockerfile
+target
+!target/seller-panel.jar

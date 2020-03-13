@@ -6,7 +6,6 @@ public class TestDataMaker {
     public static final String X_COMPANY = "X-COMPANY";
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String COMPANY_ID = "DEF";
-    public static final String INVITE_ENDPOINT = "/api/v1/invite";
     private static final String companyName = "Test Company";
     private static final String companyPrefix = "TEST";
 

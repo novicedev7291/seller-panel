@@ -14,6 +14,8 @@ A simple seller panel to help sellers to maintain their orders
 export DB_HOST=jdbc:postgresql//<db-ip>:<db-port>/seller-panel
 export DB_USER=<Your db username>
 export DB_PASS=<Your db password>
+export REDIS_PORT=<redis service port>
+export REDIS_HOST=<redis service host>
 ```
 
 ## Run using java

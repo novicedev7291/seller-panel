@@ -21,10 +21,10 @@ logging:
       hibernate:
         SQL: debug
       springframework:
-        web: debug
+        web: info
     com:
       seller:
-        panel: info
+        panel: debug
 server:
   port: ${SERVER_PORT:8081}
 ---

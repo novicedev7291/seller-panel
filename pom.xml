@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<commons-lang.version>2.6</commons-lang.version>
+		<json-web-token.version>0.9.1</json-web-token.version>
 	</properties>
 
 	<dependencies>
@@ -80,6 +81,11 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${json-web-token.version}</version>
 		</dependency>
 	</dependencies>
 

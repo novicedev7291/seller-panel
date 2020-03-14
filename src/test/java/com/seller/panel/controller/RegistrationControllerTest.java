@@ -3,7 +3,6 @@ package com.seller.panel.controller;
 import com.seller.panel.data.TestDataMaker;
 import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.handler.ExceptionHandler;
-import com.seller.panel.util.JwtTokenUtil;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @ExtendWith(MockitoExtension.class)
 public class RegistrationControllerTest {

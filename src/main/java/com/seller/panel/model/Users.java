@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Data
@@ -30,12 +31,16 @@ public class Users {
     private Boolean active = true;
 
     @Column(name = "company_id")
-    private String companyId;
+    private Long companyId;
 
     @Column(name = "created_on")
     private Instant createdOn = Instant.now();
 
     @Column(name = "updated_on")
     private Instant updatedOn = Instant.now();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Roles> roles;
 
 }

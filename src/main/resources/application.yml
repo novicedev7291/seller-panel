@@ -47,7 +47,7 @@ jwt:
   expiration: ${JWT_EXPIRATION:86400000}
 ui:
   register:
-    url: http://localhost:8081/api/v1/register/{id}
+    url: ${UI_REGISTER_URL:http://localhost:8081/api/v1/register/{id}}
 ---
 spring:
   profiles: test

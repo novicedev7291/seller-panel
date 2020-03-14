@@ -24,11 +24,10 @@ public class JwtTokenUtil {
     public String generateToken(String subject) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("jti", UUID.randomUUID().toString());
-
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plus(Long.parseLong(env.getProperty("jwt.expiration")),
+                .setExpiration(Date.from(Instant.now().plus(Long.parseLong(env.getProperty(AppConstants.JWT_EXPIRATION)),
                         ChronoUnit.MILLIS)))
-                .signWith(SignatureAlgorithm.HS512, env.getProperty("jwt.secret")).compact();
+                .signWith(SignatureAlgorithm.HS512, env.getProperty(AppConstants.JWT_SECRET)).compact();
     }
 
     public Boolean validateToken(String token, String subject) {
@@ -44,7 +43,7 @@ public class JwtTokenUtil {
     }
 
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = Jwts.parser().setSigningKey(env.getProperty("jwt.secret"))
+        final Claims claims = Jwts.parser().setSigningKey(env.getProperty(AppConstants.JWT_SECRET))
                 .parseClaimsJws(token).getBody();
         return claimsResolver.apply(claims);
     }

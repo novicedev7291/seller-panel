@@ -45,6 +45,9 @@ jwt:
   header: Authorization
   secret: ${JWT_SECRET:mySecret}
   expiration: ${JWT_EXPIRATION:86400000}
+ui:
+  register:
+    url: http://localhost:8081/api/v1/register/{id}
 ---
 spring:
   profiles: test

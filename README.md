@@ -15,8 +15,10 @@ export SERVER_PORT =<Server port>
 export DB_HOST=jdbc:postgresql//<db-ip>:<db-port>/seller-panel
 export DB_USER=<Your db username>
 export DB_PASS=<Your db password>
-export MAIL_HOST =<Email host>
-export MAIL_PORT =<Email port>
+export REDIS_PORT=<redis service port>
+export REDIS_HOST=<redis service host>
+export MAIL_HOST =<Email service host>
+export MAIL_PORT =<Email service port>
 export MAIL_USERNAME =<Email username>
 export MAIL_PASSWORD =<Email password>
 export JWT_SECRET=<Jwt secret key>
@@ -51,6 +53,13 @@ docker run -p 8081:8081 -t seller-panel/version
 ctrl+q
 
 ```
+
+For docker compose, you don't need `DB_HOST` environment variable as its added to support the local development, you can just export variable `IP` instead which would be your network `IP` or machine ip on which your db is running, since compose is supposed to be used for local development, the port and whole jdbc url is hardcoded into yml file except the ip part, so just:
+
+```
+export IP=192.168.1.1
+```
+
 
 ## Run using docker-compose
 

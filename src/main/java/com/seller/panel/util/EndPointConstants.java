@@ -17,4 +17,13 @@ public final class EndPointConstants {
 
     }
 
+    public static final class Registration {
+        private Registration() {
+            //
+        }
+
+        public static final String REGISTER = ENDPOINTS_PREFIX+"/register/{id}";
+
+    }
+
 }

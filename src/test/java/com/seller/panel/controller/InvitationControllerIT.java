@@ -31,6 +31,13 @@ public class InvitationControllerIT {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Provide email address"));
     }
 
+    @Test
+    public void shouldReturn201AfterSendingMail() throws Exception {
+        this.mvc.perform(post(EndPointConstants.Invitation.INVITE).content(asJsonString(new InvitationRequest(TestDataMaker.EMAIL1)))
+                .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+    }
+
     private static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);

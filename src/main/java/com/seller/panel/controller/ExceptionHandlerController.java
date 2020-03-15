@@ -2,6 +2,7 @@ package com.seller.panel.controller;
 
 import com.seller.panel.dto.ApiError;
 import com.seller.panel.exception.SellerPanelException;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,20 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
         error.setStatus(HttpStatus.FORBIDDEN);
         error.setDateTime(Instant.now());
         error.setMessageKey("access.denied");
+        error.setMessage(ex.getLocalizedMessage());
+        if (ex.getCause() != null) {
+            error.setCause(ex.getCause().getLocalizedMessage());
+        }
+        return new ResponseEntity<>(error, error.getStatus());
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<ApiError> handleExpiredJwtException(Exception ex, WebRequest req) {
+        LOG.error("ExpiredJwtException occurred", ex);
+        ApiError error = new ApiError();
+        error.setStatus(HttpStatus.UNAUTHORIZED);
+        error.setDateTime(Instant.now());
+        error.setMessageKey("token.expired");
         error.setMessage(ex.getLocalizedMessage());
         if (ex.getCause() != null) {
             error.setCause(ex.getCause().getLocalizedMessage());

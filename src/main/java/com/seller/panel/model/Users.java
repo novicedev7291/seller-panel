@@ -1,6 +1,7 @@
 package com.seller.panel.model;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -42,5 +43,13 @@ public class Users {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Roles> roles;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="company_id", insertable=false, updatable=false)
+    private Companies company;
+
+    public String getFullName() {
+        return StringUtils.isNotBlank(lastName) ? firstName + " " + lastName : firstName;
+    }
 
 }

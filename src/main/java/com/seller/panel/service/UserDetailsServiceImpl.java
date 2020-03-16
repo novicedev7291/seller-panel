@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepository.findByCompanyIdAndEmailAndActive(getCompanyId(request), username, true);
+        Users user = userRepository.findByEmailAndActive(username, true);
         return new User(user.getEmail(), user.getPassword(), user.getActive(), true,
                 true, true, getGrantedAuthorities(user));
     }
@@ -48,10 +48,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         return grantedAuthorities;
-    }
-
-    private Long getCompanyId(HttpServletRequest request) {
-        return Long.parseLong(request.getParameter("companyId"));
     }
 
 }

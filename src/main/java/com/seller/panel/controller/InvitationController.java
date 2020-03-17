@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 import java.text.MessageFormat;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping

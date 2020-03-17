@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
 
-import java.util.Collections;
 import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;

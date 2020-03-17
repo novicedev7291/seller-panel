@@ -2,22 +2,20 @@ package com.seller.panel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seller.panel.data.TestDataMaker;
-import com.seller.panel.dto.InvitationRequest;
 import com.seller.panel.dto.LoginRequest;
+import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,6 +24,12 @@ public class LoginControllerIT extends BaseControllerIT {
 
     @Autowired
     private MockMvc mvc;
+
+    @LocalServerPort
+    int randomServerPort;
+
+    @Autowired
+    private HttpServletResponse httpServletResponse;
 
     @BeforeTestClass
     public void setUp() {
@@ -62,11 +66,15 @@ public class LoginControllerIT extends BaseControllerIT {
     }
 
     @Test
-    public void shouldLoginWith201() throws Exception {
-        this.mvc.perform(post(EndPointConstants.Login.LOGIN).content(asJsonString(new LoginRequest(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD)))
-                .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token").isNotEmpty());
+    public void shouldLoginWithStatus201AndCorrectCookies() throws Exception {
+        ResultActions resultActions = this.mvc.perform(post(EndPointConstants.Login.LOGIN).content(asJsonString(new LoginRequest(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD)))
+                .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON));
+        String httpPayload = resultActions.andReturn().getResponse().getCookie(AppConstants.HEADER_PAYLOAD).getValue();
+        String signature = resultActions.andReturn().getResponse().getCookie(AppConstants.SIGNATURE).getValue();
+        resultActions.andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.token").value(httpPayload.concat(".").concat(signature)))
+                .andExpect(MockMvcResultMatchers.cookie().value(AppConstants.HEADER_PAYLOAD, httpPayload))
+                .andExpect(MockMvcResultMatchers.cookie().value(AppConstants.SIGNATURE, signature));
     }
 
     private static String asJsonString(final Object obj) {

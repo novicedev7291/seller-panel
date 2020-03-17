@@ -1,12 +1,11 @@
 package com.seller.panel.controller;
 
 import com.seller.panel.data.TestDataMaker;
-import com.seller.panel.dto.InvitationRequest;
 import com.seller.panel.dto.LoginRequest;
 import com.seller.panel.dto.LoginResponse;
 import com.seller.panel.exception.SellerPanelException;
-import com.seller.panel.service.LoginService;
-import com.seller.panel.util.AppConstants;
+import com.seller.panel.service.UserService;
+import com.seller.panel.util.JwtTokenUtil;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,12 +20,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,7 +32,10 @@ public class LoginControllerTest extends BaseControllerTest {
     private LoginController loginController;
 
     @Mock
-    private LoginService loginService;
+    private UserService userService;
+
+    @Mock
+    private JwtTokenUtil jwtTokenUtil;
 
     @Mock
     private HttpServletRequest httpServletRequest;
@@ -66,10 +65,14 @@ public class LoginControllerTest extends BaseControllerTest {
         LoginRequest loginRequest = new LoginRequest(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD);
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        when(loginService.validateDataAndGenerateToken(loginRequest)).thenReturn(TestDataMaker.JWT_TOKEN);
+        when(userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword())).thenReturn(TestDataMaker.makeUser());
+        when(jwtTokenUtil.generateToken(anyString(), anyMap())).thenReturn(TestDataMaker.JWT_TOKEN);
         ResponseEntity<LoginResponse> responseEntity = loginController.login(loginRequest);
         assertThat(HttpStatus.CREATED.value(), equalTo(responseEntity.getStatusCodeValue()));
-        verify(loginService, times(1)).validateDataAndGenerateToken(loginRequest);
+        verify(userService, times(1)).authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+        verify(jwtTokenUtil, times(1)).generateToken(anyString(), anyMap());
+        verifyNoMoreInteractions(userService);
+        verifyNoMoreInteractions(jwtTokenUtil);
     }
 
 }

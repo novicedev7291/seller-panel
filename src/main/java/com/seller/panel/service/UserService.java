@@ -11,8 +11,8 @@ public class UserService extends BaseService {
     @Autowired
     UserRepository userRepository;
 
-    public Users validateUsernameAndPassword(String username, String password) {
-        Users user = userRepository.findByEmailAndActive(username, true);
+    public Users authenticate(String email, String password) {
+        Users user = userRepository.findByEmailAndActive(email, true);
         if(user == null || !user.getPassword().equals(password))
             throw getException("SP-5");
         return user;

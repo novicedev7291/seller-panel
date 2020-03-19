@@ -1,12 +1,11 @@
-package com.seller.panel.controller;
+package com.seller.panel.service;
 
 import com.seller.panel.handler.ExceptionHandler;
 import org.mockito.Mock;
 
-public abstract class BaseControllerTest {
+public abstract class BaseServiceTest {
 
     @Mock
     protected ExceptionHandler exceptionHandler;
-
 
 }

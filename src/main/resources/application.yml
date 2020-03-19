@@ -13,6 +13,7 @@ spring:
   redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD}
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
@@ -48,6 +49,9 @@ jwt:
 ui:
   register:
     url: ${UI_REGISTER_URL:http://localhost:8081/api/v1/register/{0}}
+invitation:
+  token:
+    expiry: ${INVITATION_TOKEN_EXPIRY:7200000}
 ---
 spring:
   profiles: test

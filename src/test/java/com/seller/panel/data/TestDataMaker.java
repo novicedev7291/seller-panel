@@ -19,6 +19,10 @@ public class TestDataMaker {
     public static final String REGISTER_ID = "94333c51-c619-4664-b7c0-61179c930617";
     public static final String UI_REGISTER_URL = "http://localhost"+PORT+ EndPointConstants.ENDPOINTS_PREFIX+"register/{0}";
     public static final String PASSWORD = "Passw@rd";
+    public static final String INVITATION_TOKEN_EXPIRY = "7200000";
+    public static final String REDIS_HOST = "localhost";
+    public static final String REDIS_PORT = "6379";
+    public static final String REDIS_PASSWORD = "redis_pass";
 
     public static Users makeUser() {
         Faker faker = new Faker();

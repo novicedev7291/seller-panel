@@ -10,11 +10,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
 
+import java.util.HashMap;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.*;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.hamcrest.core.IsNull.nullValue;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class JwtTokenUtilTest {
@@ -29,7 +30,7 @@ public class JwtTokenUtilTest {
     public void shouldGenerateJwtToken() {
         when(env.getProperty(AppConstants.JWT_EXPIRATION)).thenReturn(TestDataMaker.JWT_EXPIRATION);
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
-        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1);
+        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1, new HashMap<>());
         assertThat(token, notNullValue());
         verify(env, times(1)).getProperty(AppConstants.JWT_EXPIRATION);
         verify(env, times(1)).getProperty(AppConstants.JWT_SECRET);
@@ -50,7 +51,7 @@ public class JwtTokenUtilTest {
     public void shouldInvalidToken() {
         when(env.getProperty(AppConstants.JWT_EXPIRATION)).thenReturn(TestDataMaker.JWT_EXPIRATION);
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
-        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1);
+        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1, new HashMap<>());
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
         Boolean isValid = jwtTokenUtil.validateToken(token, TestDataMaker.EMAIL2);
         assertThat(isValid, equalTo(false));
@@ -63,7 +64,7 @@ public class JwtTokenUtilTest {
     public void shouldValidToken() {
         when(env.getProperty(AppConstants.JWT_EXPIRATION)).thenReturn(TestDataMaker.JWT_EXPIRATION);
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
-        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1);
+        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1, new HashMap<>());
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
         Boolean isValid = jwtTokenUtil.validateToken(token, TestDataMaker.EMAIL1);
         assertThat(isValid, equalTo(true));
@@ -76,7 +77,7 @@ public class JwtTokenUtilTest {
     public void shouldFetchSubjectFromToken() {
         when(env.getProperty(AppConstants.JWT_EXPIRATION)).thenReturn(TestDataMaker.JWT_EXPIRATION);
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
-        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1);
+        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1, new HashMap<>());
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
         String subject = jwtTokenUtil.getSubjectFromToken(token);
         assertThat(TestDataMaker.EMAIL1, equalTo(subject));
@@ -89,7 +90,7 @@ public class JwtTokenUtilTest {
     public void shouldFetchJtiFromToken() {
         when(env.getProperty(AppConstants.JWT_EXPIRATION)).thenReturn(TestDataMaker.JWT_EXPIRATION);
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
-        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1);
+        String token = jwtTokenUtil.generateToken(TestDataMaker.EMAIL1, new HashMap<>());
         when(env.getProperty(AppConstants.JWT_SECRET)).thenReturn(TestDataMaker.JWT_SECRET);
         String jti = jwtTokenUtil.getJtiFromToken(token);
         assertThat(jti, notNullValue());

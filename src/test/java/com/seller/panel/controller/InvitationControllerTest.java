@@ -19,6 +19,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.Collections;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -55,13 +56,13 @@ public class InvitationControllerTest extends BaseControllerTest {
     public void shouldInviteUser() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        when(jwtTokenUtil.generateToken(TestDataMaker.EMAIL1)).thenReturn(TestDataMaker.JWT_TOKEN);
+        when(jwtTokenUtil.generateToken(TestDataMaker.EMAIL1, Collections.EMPTY_MAP)).thenReturn(TestDataMaker.JWT_TOKEN);
         when(env.getProperty(AppConstants.UI_REGISTER_URL)).thenReturn(TestDataMaker.UI_REGISTER_URL);
         when(jwtTokenUtil.getJtiFromToken(TestDataMaker.JWT_TOKEN)).thenReturn(UUID.randomUUID().toString());
         doNothing().when(mailService).sendEmail(any(String.class), any(String.class), any(String.class));
         ResponseEntity<Void> responseEntity = invitationController.invite(new InvitationRequest(TestDataMaker.EMAIL1));
         assertThat(HttpStatus.CREATED.value(), equalTo(responseEntity.getStatusCodeValue()));
-        verify(jwtTokenUtil, times(1)).generateToken(TestDataMaker.EMAIL1);
+        verify(jwtTokenUtil, times(1)).generateToken(TestDataMaker.EMAIL1, Collections.EMPTY_MAP);
         verify(jwtTokenUtil, times(1)).getJtiFromToken(TestDataMaker.JWT_TOKEN);
         verifyNoMoreInteractions(jwtTokenUtil);
         verify(env, times(1)).getProperty(AppConstants.UI_REGISTER_URL);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 import java.text.MessageFormat;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping
@@ -35,7 +36,7 @@ public class InvitationController extends BaseController {
     public ResponseEntity<Void> invite(@NotNull @RequestBody InvitationRequest request) {
         if(StringUtils.isBlank(request.getEmail()))
             throw getException("SP-1");
-        String token = jwtTokenUtil.generateToken(request.getEmail());
+        String token = jwtTokenUtil.generateToken(request.getEmail(), new HashMap<>());
 
         String registerUrl = env.getProperty(AppConstants.UI_REGISTER_URL);
         MessageFormat mf = new MessageFormat(registerUrl);

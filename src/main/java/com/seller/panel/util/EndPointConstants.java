@@ -26,4 +26,13 @@ public final class EndPointConstants {
 
     }
 
+    public static final class Login {
+        private Login() {
+            //
+        }
+
+        public static final String LOGIN = ENDPOINTS_PREFIX+"/login";
+
+    }
+
 }

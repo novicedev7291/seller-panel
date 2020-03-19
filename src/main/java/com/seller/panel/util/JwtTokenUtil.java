@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
@@ -21,8 +20,7 @@ public class JwtTokenUtil {
     @Autowired
     private Environment env;
 
-    public String generateToken(String subject) {
-        Map<String, Object> claims = new HashMap<>();
+    public String generateToken(String subject, Map<String, Object> claims) {
         claims.put("jti", UUID.randomUUID().toString());
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(Instant.now().plus(Long.parseLong(env.getProperty(AppConstants.JWT_EXPIRATION)),

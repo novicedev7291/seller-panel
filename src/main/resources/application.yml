@@ -47,16 +47,18 @@ jwt:
   expiration: ${JWT_EXPIRATION:86400000}
 ui:
   register:
-    url: ${UI_REGISTER_URL:http://localhost:8081/api/v1/register/{id}}
+    url: ${UI_REGISTER_URL:http://localhost:8081/api/v1/register/{0}}
 ---
 spring:
   profiles: test
   datasource:
     driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:seller-panel;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-flyway:
-  locations: classpath:/db/migration
+    url: jdbc:h2:mem:seller-panel;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=RUNSCRIPT FROM 'classpath:h2/db/migration/test/init_tests.sql';
+  jpa:
+    show-sql: true
+  flyway:
+    locations: classpath:/db/migration,classpath:/h2/db/migration
 jwt:
   header: Authorization
-  secret: mySecret
+  secret: testSecret
   expiration: 86400000

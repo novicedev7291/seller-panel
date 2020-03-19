@@ -24,6 +24,8 @@ export MAIL_PASSWORD =<Email password>
 export JWT_SECRET=<Jwt secret key>
 export JWT_EXPIRATION =<Jwt expiration in milliseconds>
 export UI_REGISTER_URL =<UI register url>
+export REDIS_HOST =<Redis host>
+export REDIS_PORT =<Redis port>
 export REDIS_PASSWORD =<Redis password>
 export INVITATION_TOKEN_EXPIRY =<Invitation token expiry in milliseconds>
 ```

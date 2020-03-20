@@ -14,9 +14,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping
 public class RegistrationController extends BaseController {
-
-
-
+    
     @GetMapping(EndPointConstants.Registration.REGISTER)
     public ResponseEntity<Void> register(@NotNull @PathVariable("id") String id) {
         if(StringUtils.isBlank(id))

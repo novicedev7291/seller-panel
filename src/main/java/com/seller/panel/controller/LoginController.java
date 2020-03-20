@@ -50,4 +50,5 @@ public class LoginController extends BaseController {
         httpServletRequest.setAttribute("token", token);
         return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponse(token));
     }
+
 }

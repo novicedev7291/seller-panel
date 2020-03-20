@@ -1,6 +1,5 @@
 package com.seller.panel.handler;
 
-import com.seller.panel.exception.SellerPanelException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

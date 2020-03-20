@@ -15,7 +15,6 @@ public class RedisConfig {
     @Autowired
     private Environment env;
 
-    @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration =
                 new RedisStandaloneConfiguration(env.getProperty(AppConstants.SPRING_REDIS_HOST),

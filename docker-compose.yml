@@ -5,10 +5,12 @@ services:
       context: .
       dockerfile: Dockerfile
     ports: 
-      - "8081:8081"
+      - "${HOST_PORT}:8081"
     environment: 
-      DB_HOST: "jdbc:postgresql://${IP}:5432/seller-panel"
+      DB_HOST: "jdbc:postgresql://${IP}:5432/seller_panel"
       DB_USER: "${DB_USER}"
       DB_PASS: "${DB_PASS}"
       REDIS_HOST: "${REDIS_HOST}"
       REDIS_PORT: "${REDIS_PORT}"
+      MAIL_USERNAME: "${MAIL_USERNAME}"
+      MAIL_PASSWORD: "${MAIL_PASSWORD}"

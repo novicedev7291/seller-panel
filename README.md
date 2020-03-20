@@ -15,6 +15,9 @@ export SERVER_PORT =<Server port>
 export DB_HOST=jdbc:postgresql//<db-ip>:<db-port>/seller-panel
 export DB_USER=<Your db username>
 export DB_PASS=<Your db password>
+export REDIS_HOST=<Redis service host>
+export REDIS_PORT=<Redis service port>
+export REDIS_PASSWORD =<Redis password>
 export MAIL_HOST =<Email service host>
 export MAIL_PORT =<Email service port>
 export MAIL_USERNAME =<Email username>
@@ -22,11 +25,13 @@ export MAIL_PASSWORD =<Email password>
 export JWT_SECRET=<Jwt secret key>
 export JWT_EXPIRATION =<Jwt expiration in milliseconds>
 export UI_REGISTER_URL =<UI register url>
-export REDIS_HOST =<Redis host>
-export REDIS_PORT =<Redis port>
-export REDIS_PASSWORD =<Redis password>
 export INVITATION_TOKEN_EXPIRY =<Invitation token expiry in milliseconds>
 ```
+
+### Or you can copy `env.example.sh` to local file and then run
+`source filename`
+> Don't forget to change the values in your file.
+
 
 ## Run using java
 

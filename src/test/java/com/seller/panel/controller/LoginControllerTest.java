@@ -42,7 +42,7 @@ public class LoginControllerTest extends BaseControllerTest {
 
     @Test
     public void shouldThrowProvideUsernameException() {
-        when(exceptionHandler.getException("SP-4")).thenReturn(new SellerPanelException("Provide username"));
+        when(exceptionHandler.getException("SP-4")).thenReturn(new SellerPanelException("Username must not be empty"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             loginController.login(new LoginRequest());
         });
@@ -52,7 +52,7 @@ public class LoginControllerTest extends BaseControllerTest {
 
     @Test
     public void shouldThrowProvidePasswordException() {
-        when(exceptionHandler.getException("SP-5")).thenReturn(new SellerPanelException("Provide password"));
+        when(exceptionHandler.getException("SP-5")).thenReturn(new SellerPanelException("Password must not be empty"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             loginController.login(new LoginRequest(TestDataMaker.EMAIL1, StringUtils.EMPTY));
         });

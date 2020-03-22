@@ -32,7 +32,7 @@ public class JoinControllerIT {
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Provide email address"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Email must not be empty"));
     }
 
     private static String asJsonString(final Object obj) {

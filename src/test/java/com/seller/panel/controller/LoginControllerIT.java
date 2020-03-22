@@ -42,7 +42,7 @@ public class LoginControllerIT extends BaseControllerIT {
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-4"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Provide username"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Username must not be empty"));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class LoginControllerIT extends BaseControllerIT {
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-5"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Provide password"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Password must not be empty"));
     }
 
     @Test

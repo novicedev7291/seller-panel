@@ -53,7 +53,7 @@ public class JoinControllerTest extends BaseControllerTest {
 
     @Test
     public void shouldThrowProvideEmailException() {
-        when(exceptionHandler.getException("SP-1")).thenReturn(new SellerPanelException("Provide email address"));
+        when(exceptionHandler.getException("SP-1")).thenReturn(new SellerPanelException("Email must not be empty"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             joinController.join(new JoinRequest());
         });
@@ -63,7 +63,7 @@ public class JoinControllerTest extends BaseControllerTest {
 
     @Test
     public void shouldThrowInvalidEmailException() {
-        when(exceptionHandler.getException("SP-2")).thenReturn(new SellerPanelException("Invalid email address"));
+        when(exceptionHandler.getException("SP-2")).thenReturn(new SellerPanelException("Invalid email"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             joinController.join(new JoinRequest(TestDataMaker.WRONG_EMAIL));
         });

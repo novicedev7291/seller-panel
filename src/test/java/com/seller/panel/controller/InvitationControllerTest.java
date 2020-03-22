@@ -47,7 +47,7 @@ public class InvitationControllerTest extends BaseControllerTest {
 
     @Test
     public void shouldThrowProvideIdException() {
-        when(exceptionHandler.getException("SP-3")).thenReturn(new SellerPanelException("Provide access token id"));
+        when(exceptionHandler.getException("SP-3")).thenReturn(new SellerPanelException("Access token id must not be empty"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             invitationController.invite(StringUtils.EMPTY);
         });

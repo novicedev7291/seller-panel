@@ -44,6 +44,13 @@ public class TestDataMaker {
         return user;
     }
 
+    public static RegistrationRequest makeRegistrationRequestWithWrongEmail() {
+        Faker faker = new Faker();
+        RegistrationRequest request = new RegistrationRequest();
+        request.setEmail(faker.internet().domainName());
+        return request;
+    }
+
     public static RegistrationRequest makeRegistrationRequest() {
         Faker faker = new Faker();
         RegistrationRequest request = new RegistrationRequest();

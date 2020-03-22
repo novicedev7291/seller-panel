@@ -19,5 +19,6 @@ public final class AppConstants {
     public static final String EMAIL_REGEX =  "^(.+)@(.+)$";
     public static final String GENERIC =  "generic";
     public static final String MUSTNOTBEEMPTY = "Must not be empty";
+    public static final String INVALID = "invalid";
 
 }

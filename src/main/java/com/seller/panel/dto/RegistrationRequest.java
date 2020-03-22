@@ -15,6 +15,7 @@ public class RegistrationRequest {
     private String phone;
     private String countryCode;
     @NotBlank(message = AppConstants.MUSTNOTBEEMPTY)
+    @Pattern(message = AppConstants.INVALID, regexp = AppConstants.EMAIL_REGEX)
     private String email;
     @NotBlank(message = AppConstants.MUSTNOTBEEMPTY)
     private String companyName;

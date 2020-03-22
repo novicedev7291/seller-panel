@@ -2,7 +2,6 @@ package com.seller.panel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seller.panel.data.TestDataMaker;
-import com.seller.panel.dto.LoginRequest;
 import com.seller.panel.dto.RegistrationRequest;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
@@ -12,7 +11,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.servlet.http.HttpServletResponse;
@@ -57,31 +55,24 @@ public class RegistrationControllerIT extends BaseControllerIT {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(AppConstants.MUSTNOTBEEMPTY))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(AppConstants.INVALID))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyName").value(AppConstants.MUSTNOTBEEMPTY))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.confirmPassword").value(AppConstants.MUSTNOTBEEMPTY))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value(AppConstants.MUSTNOTBEEMPTY));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.confirmPassword").value(AppConstants.MUSTNOTBEEMPTY));
     }
 
     @Test
-    public void shouldReturn400WithMessageKeySP5() throws Exception {
-        this.mvc.perform(post(EndPointConstants.Login.LOGIN)
-                .content(asJsonString(new LoginRequest(TestDataMaker.EMAIL2,
-                        TestDataMaker.PASSWORD)))
+    public void shouldReturn400WithPasswordsAreNotEqualMessage() throws Exception {
+        this.mvc.perform(post(EndPointConstants.Registration.REGISTER)
+                .content(asJsonString(TestDataMaker.makeRegistrationRequestWithMismatchInPassword()))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value(AppConstants.GENERIC))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid username and password"));
+                .andExpect(MockMvcResultMatchers.jsonPath(AppConstants.GENERIC).value("Passwords are not equal"));
     }
 
     @Test
-    public void shouldLoginWithStatus201AndCorrectCookies() throws Exception {
-        ResultActions resultActions = this.mvc.perform(post(EndPointConstants.Login.LOGIN).content(asJsonString(new LoginRequest(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD)))
-                .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON));
-        String httpPayload = resultActions.andReturn().getResponse().getCookie(AppConstants.HEADER_PAYLOAD).getValue();
-        String signature = resultActions.andReturn().getResponse().getCookie(AppConstants.SIGNATURE).getValue();
-        resultActions.andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token").value(httpPayload.concat(".").concat(signature)))
-                .andExpect(MockMvcResultMatchers.cookie().value(AppConstants.HEADER_PAYLOAD, httpPayload))
-                .andExpect(MockMvcResultMatchers.cookie().value(AppConstants.SIGNATURE, signature));
+    public void shouldRegister() throws Exception {
+        this.mvc.perform(post(EndPointConstants.Registration.REGISTER)
+                .content(asJsonString(TestDataMaker.makeRegistrationRequest()))
+                .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
     }
 
     private static String asJsonString(final Object obj) {

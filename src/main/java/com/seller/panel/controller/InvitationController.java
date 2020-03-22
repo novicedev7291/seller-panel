@@ -35,7 +35,7 @@ public class InvitationController extends BaseController {
     public ResponseEntity<InvitationResponse> invite(@NotNull @PathVariable("access_token_id") String accessTokenId) {
         String token = (String) redisTemplate.opsForValue().get(accessTokenId);
         if(StringUtils.isBlank(token))
-            throw new AccessDeniedException(getMessage("SP-7"));
+            throw new AccessDeniedException(getMessage("SP-2"));
         String email = jwtTokenUtil.getSubjectFromToken(token);
         String newToken = jwtTokenUtil.generateToken(email, new HashMap<>());
         httpServletRequest.setAttribute("token", newToken);

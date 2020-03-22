@@ -13,4 +13,8 @@ public abstract class BaseService {
         return exceptionHandler.getException(key);
     }
 
+    public SellerPanelException getException(String key, Object... params) {
+        return exceptionHandler.getException(key, params);
+    }
+
 }

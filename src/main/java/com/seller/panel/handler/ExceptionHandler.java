@@ -18,7 +18,7 @@ public class ExceptionHandler {
         return getException(key, null);
     }
 
-    public SellerPanelException getException(String key, Object[] params) {
+    public SellerPanelException getException(String key, Object... params) {
         return getException(key, params, LocaleContextHolder.getLocale());
     }
 

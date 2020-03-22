@@ -2,9 +2,7 @@ package com.seller.panel.controller;
 
 import com.seller.panel.data.TestDataMaker;
 import com.seller.panel.dto.InvitationResponse;
-import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.util.JwtTokenUtil;
-import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,12 +46,12 @@ public class InvitationControllerTest extends BaseControllerTest {
     @Test
     public void shouldThrowAccessDeniedException() {
         when(redisTemplate.opsForValue()).thenReturn(valueOperations);
-        when(messageHandler.getMessage("SP-7")).thenReturn("Link expired, please join us again");
+        when(messageHandler.getMessage("SP-2")).thenReturn("Link expired, please join us again");
         Assertions.assertThrows(AccessDeniedException.class, () -> {
             invitationController.invite(TestDataMaker.EMAIL1);
         });
         verify(redisTemplate, times(1)).opsForValue();
-        verify(messageHandler, times(1)).getMessage("SP-7");
+        verify(messageHandler, times(1)).getMessage("SP-2");
         verifyNoMoreInteractions(redisTemplate);
         verifyNoMoreInteractions(messageHandler);
     }

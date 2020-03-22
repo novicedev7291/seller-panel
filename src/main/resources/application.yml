@@ -29,7 +29,7 @@ spring:
           starttls:
             enable: true
 flyway:
-  locations: classpath:/db/migration
+  locations: classpath:/db/migration,classpath:/dev/db/migration
 logging:
   level:
     org:

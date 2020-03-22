@@ -1,6 +1,5 @@
 package com.seller.panel.controller;
 
-import com.seller.panel.dto.ApiError;
 import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.util.AppConstants;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 

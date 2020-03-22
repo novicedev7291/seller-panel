@@ -4,7 +4,6 @@ import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.Set;
 
@@ -17,15 +16,14 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    private String name;
 
     private String email;
 
     private String phone;
+
+    @Column(name = "country_code")
+    private String countryCode;
 
     @Column(length = 60)
     private String password;
@@ -48,9 +46,5 @@ public class Users {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="company_id", insertable=false, updatable=false)
     private Companies company;
-
-    public String getFullName() {
-        return StringUtils.isNotBlank(lastName) ? firstName + " " + lastName : firstName;
-    }
 
 }

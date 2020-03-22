@@ -1,11 +1,13 @@
 package com.seller.panel.data;
 
 import com.github.javafaker.Faker;
+import com.seller.panel.dto.Registration;
 import com.seller.panel.dto.RegistrationRequest;
 import com.seller.panel.model.Companies;
 import com.seller.panel.model.Users;
+import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
-import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.BeanUtils;
 
 public class TestDataMaker {
 
@@ -31,22 +33,69 @@ public class TestDataMaker {
         user.setId(faker.random().nextLong());
         user.setPassword(faker.internet().password());
         user.setActive(true);
-        user.setCompanyId(NumberUtils.LONG_ONE);
         user.setEmail(faker.internet().emailAddress());
-        user.setFirstName(faker.name().firstName());
-        user.setLastName(faker.name().lastName());
+        user.setName(faker.name().name());
         user.setPhone(faker.phoneNumber().cellPhone());
+        user.setCountryCode(faker.country().countryCode2());
+        Companies company = makeCompany();
+        user.setCompany(company);
+        user.setCompanyId(company.getId());
+        return user;
+    }
+
+    public static Companies makeCompany() {
+        Faker faker = new Faker();
         Companies company = new Companies();
-        company.setId(user.getCompanyId());
+        company.setId(faker.random().nextLong());
         company.setName(faker.company().name());
         company.setCode(faker.company().suffix());
-        user.setCompany(company);
-        return user;
+        return company;
+    }
+
+    public static RegistrationRequest makeRegistrationRequestWithWrongEmail() {
+        Faker faker = new Faker();
+        RegistrationRequest request = new RegistrationRequest();
+        request.setEmail(faker.internet().domainName());
+        request.setPassword(faker.internet().password());
+        return request;
+    }
+
+    public static RegistrationRequest makeRegistrationRequestWithMismatchInPassword() {
+        Faker faker = new Faker();
+        RegistrationRequest request = new RegistrationRequest();
+        request.setName(faker.name().name());
+        request.setPhone(faker.phoneNumber().cellPhone());
+        request.setCountryCode(faker.country().countryCode2());
+        request.setEmail(faker.internet().emailAddress());
+        request.setCompanyName(faker.company().name());
+        request.setPassword(AppConstants.VALID_PASSWORD);
+        request.setConfirmPassword(faker.internet().password());
+        return request;
     }
 
     public static RegistrationRequest makeRegistrationRequest() {
         Faker faker = new Faker();
         RegistrationRequest request = new RegistrationRequest();
+        request.setName(faker.name().name());
+        request.setPhone(faker.phoneNumber().cellPhone());
+        request.setCountryCode(faker.country().countryCode2());
+        request.setEmail(faker.internet().emailAddress());
+        request.setCompanyName(faker.company().name());
+        request.setPassword(AppConstants.VALID_PASSWORD);
+        request.setConfirmPassword(request.getPassword());
         return request;
     }
+
+    public static Registration makeRegistration() {
+        Registration request = new Registration();
+        BeanUtils.copyProperties(makeRegistrationRequest(), request);
+        return request;
+    }
+
+    public static Registration makeRegistrationWithMismatchInPassword() {
+        Registration request = new Registration();
+        BeanUtils.copyProperties(makeRegistrationRequestWithMismatchInPassword(), request);
+        return request;
+    }
+
 }

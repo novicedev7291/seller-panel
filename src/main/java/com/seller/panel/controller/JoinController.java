@@ -1,12 +1,10 @@
 package com.seller.panel.controller;
 
-import com.github.javafaker.App;
 import com.seller.panel.dto.JoinRequest;
 import com.seller.panel.service.MailService;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import com.seller.panel.util.JwtTokenUtil;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping
@@ -43,10 +38,6 @@ public class JoinController extends BaseController {
 
     @PostMapping(EndPointConstants.Join.JOIN)
     public ResponseEntity<Void> join(@Valid @RequestBody JoinRequest request) {
-        Pattern pattern = Pattern.compile(AppConstants.EMAIL_REGEX);
-        Matcher matcher = pattern.matcher(request.getEmail());
-        if(!matcher.matches())
-            throw getException("SP-2");
         String token = jwtTokenUtil.generateToken(request.getEmail(), new HashMap<>());
 
         String inviteUrl = env.getProperty(AppConstants.UI_INVITE_URL);

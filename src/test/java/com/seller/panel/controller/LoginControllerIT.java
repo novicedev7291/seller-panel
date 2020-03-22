@@ -2,11 +2,9 @@ package com.seller.panel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seller.panel.data.TestDataMaker;
-import com.seller.panel.dto.JoinRequest;
 import com.seller.panel.dto.LoginRequest;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -53,7 +51,7 @@ public class LoginControllerIT extends BaseControllerIT {
                         TestDataMaker.PASSWORD)))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.generic").value("Invalid username and password"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.generic").value("Invalid username or password"));
     }
 
     @Test

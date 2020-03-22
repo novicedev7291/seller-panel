@@ -2,11 +2,9 @@ package com.seller.panel.controller;
 
 import com.seller.panel.data.TestDataMaker;
 import com.seller.panel.dto.JoinRequest;
-import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.service.MailService;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.JwtTokenUtil;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -50,16 +48,6 @@ public class JoinControllerTest extends BaseControllerTest {
 
     @Mock
     private ValueOperations valueOperations;
-
-    @Test
-    public void shouldThrowInvalidEmailException() {
-        when(exceptionHandler.getException("SP-2")).thenReturn(new SellerPanelException("Invalid email"));
-        Assertions.assertThrows(SellerPanelException.class, () -> {
-            joinController.join(new JoinRequest(TestDataMaker.WRONG_EMAIL));
-        });
-        verify(exceptionHandler, times(1)).getException("SP-2");
-        verifyNoMoreInteractions(exceptionHandler);
-    }
 
     @Test
     public void shouldJoinUser() {

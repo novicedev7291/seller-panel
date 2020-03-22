@@ -6,7 +6,6 @@ import com.seller.panel.model.Users;
 import com.seller.panel.service.UserService;
 import com.seller.panel.util.EndPointConstants;
 import com.seller.panel.util.JwtTokenUtil;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +36,7 @@ public class LoginController extends BaseController {
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         Users user = userService.authenticate(request.getEmail(), request.getPassword());
         Map<String, Object> claims = new HashMap<>();
-        claims.put("name", user.getFullName());
+        claims.put("name", user.getName());
         claims.put("email", user.getEmail());
         claims.put("companyName", user.getCompany().getName());
         claims.put("companyId", user.getCompanyId());

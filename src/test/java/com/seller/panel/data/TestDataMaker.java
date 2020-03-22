@@ -1,6 +1,7 @@
 package com.seller.panel.data;
 
 import com.github.javafaker.Faker;
+import com.seller.panel.dto.SignUpRequest;
 import com.seller.panel.model.Companies;
 import com.seller.panel.model.Users;
 import com.seller.panel.util.EndPointConstants;
@@ -43,5 +44,9 @@ public class TestDataMaker {
         return user;
     }
 
-
+    public static SignUpRequest makeSignUpRequest() {
+        Faker faker = new Faker();
+        SignUpRequest request = new SignUpRequest();
+        return request;
+    }
 }

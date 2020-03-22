@@ -35,6 +35,15 @@ public final class EndPointConstants {
 
     }
 
+    public static final class SignUp {
+        private SignUp() {
+            //
+        }
+
+        public static final String SIGNUP = ENDPOINTS_PREFIX+"/signup";
+
+    }
+
     public static final class Login {
         private Login() {
             //
@@ -43,5 +52,6 @@ public final class EndPointConstants {
         public static final String LOGIN = ENDPOINTS_PREFIX+"/login";
 
     }
+
 
 }

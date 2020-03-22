@@ -15,7 +15,6 @@ public class Companies {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Must not be empty")
     private String name;
 
     private String code;

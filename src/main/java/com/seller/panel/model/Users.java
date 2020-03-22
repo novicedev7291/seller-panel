@@ -17,25 +17,21 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Provide first name")
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
-    @NotBlank(message = "Provide email")
     private String email;
 
     private String phone;
 
-    @NotBlank(message = "Provide password")
     @Column(length = 60)
     private String password;
 
     private Boolean active = true;
 
-    @NotBlank(message = "Provide company")
     @Column(name = "company_id")
     private Long companyId;
 

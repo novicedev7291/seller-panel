@@ -15,10 +15,9 @@ public class Companies {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Provide company name")
+    @NotBlank(message = "Must not be empty")
     private String name;
 
-    @NotBlank(message = "Provide company code")
     private String code;
 
     private String description;

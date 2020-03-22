@@ -1,7 +1,7 @@
 package com.seller.panel.data;
 
 import com.github.javafaker.Faker;
-import com.seller.panel.dto.SignUpRequest;
+import com.seller.panel.dto.RegistrationRequest;
 import com.seller.panel.model.Companies;
 import com.seller.panel.model.Users;
 import com.seller.panel.util.EndPointConstants;
@@ -17,10 +17,10 @@ public class TestDataMaker {
     public static final String JWT_SECRET = "test-jwt-secret";
     public static final String JWT_EXPIRATION = "604800";
     public static final String JWT_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkdW1teS1zZWxsZXItcGFuZWxAZ21haWwuY29tIiwiZXhwIjoxNTg0MTcwODA0LCJpYXQiOjE1ODQxNzE0MDgsImp0aSI6IjRiMjMxYzc2LTM3OWEtNDNkYi04MzdjLTMwMGNjYzQ2MDM4ZCJ9.g93PLrYweYawCX2FSVHL6m9upRHrIrqZBKfT8z3lNjVQUKfOCm8l5kaCDcICjqlZr7Yk-aCjqZ29TtQZ5PUy8w";
-    public static final String REGISTER_ID = "94333c51-c619-4664-b7c0-61179c930617";
-    public static final String UI_REGISTER_URL = "http://localhost"+PORT+ EndPointConstants.ENDPOINTS_PREFIX+"register/{0}";
+    public static final String INVITE_ID = "94333c51-c619-4664-b7c0-61179c930617";
+    public static final String UI_INVITE_URL = "http://localhost"+PORT+ EndPointConstants.ENDPOINTS_PREFIX+"invite/{0}";
     public static final String PASSWORD = "Passw@rd";
-    public static final String INVITATION_TOKEN_EXPIRY = "7200000";
+    public static final String JOIN_TOKEN_EXPIRY = "7200000";
     public static final String REDIS_HOST = "localhost";
     public static final String REDIS_PORT = "6379";
     public static final String REDIS_PASSWORD = "redis_pass";
@@ -44,9 +44,9 @@ public class TestDataMaker {
         return user;
     }
 
-    public static SignUpRequest makeSignUpRequest() {
+    public static RegistrationRequest makeRegistrationRequest() {
         Faker faker = new Faker();
-        SignUpRequest request = new SignUpRequest();
+        RegistrationRequest request = new RegistrationRequest();
         return request;
     }
 }

@@ -24,8 +24,8 @@ export MAIL_USERNAME =<Email username>
 export MAIL_PASSWORD =<Email password>
 export JWT_SECRET=<Jwt secret key>
 export JWT_EXPIRATION =<Jwt expiration in milliseconds>
-export UI_REGISTER_URL =<UI register url>
-export INVITATION_TOKEN_EXPIRY =<Invitation token expiry in milliseconds>
+export UI_INVITE_URL =<UI invite url>
+export JOIN_TOKEN_EXPIRY =<Join token expiry in milliseconds>
 ```
 
 ### Or you can copy `env.example.sh` to local file and then run

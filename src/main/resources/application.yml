@@ -17,8 +17,8 @@ spring:
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    username: ${MAIL_USERNAME:sellerpanel2@gmail.com}
+    password: ${MAIL_PASSWORD:P@ssw15rd}
     properties:
       mail:
         smtp:
@@ -47,11 +47,11 @@ jwt:
   secret: ${JWT_SECRET:mySecret}
   expiration: ${JWT_EXPIRATION:86400000}
 ui:
-  register:
-    url: ${UI_REGISTER_URL:http://localhost:8081/api/v1/register/{0}}
-invitation:
+  invite:
+    url: ${UI_INVITE_URL:http://localhost:8081/api/v1/invite/{0}}
+join:
   token:
-    expiry: ${INVITATION_TOKEN_EXPIRY:7200000}
+    expiry: ${JOIN_TOKEN_EXPIRY:7200000}
 ---
 spring:
   profiles: test

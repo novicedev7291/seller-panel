@@ -1,33 +1,30 @@
 package com.seller.panel.controller;
 
 import com.seller.panel.data.TestDataMaker;
-import com.seller.panel.dto.InvitationRequest;
+import com.seller.panel.dto.InvitationResponse;
 import com.seller.panel.exception.SellerPanelException;
-import com.seller.panel.service.MailService;
-import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.JwtTokenUtil;
+import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.Collections;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,53 +34,44 @@ public class InvitationControllerTest extends BaseControllerTest {
     private InvitationController invitationController;
 
     @Mock
-    private JwtTokenUtil jwtTokenUtil;
-
-    @Mock
-    private MailService mailService;
-
-    @Mock
-    private Environment env;
-
-    @Mock
     private RedisTemplate redisTemplate;
 
     @Mock
     private ValueOperations valueOperations;
 
+    @Mock
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Mock
+    private HttpServletRequest httpServletRequest;
+
     @Test
-    public void shouldThrowProvideEmailException() {
-        when(exceptionHandler.getException("SP-1")).thenReturn(new SellerPanelException("Provide email address"));
-        Assertions.assertThrows(SellerPanelException.class, () -> {
-            invitationController.invite(new InvitationRequest());
+    public void shouldThrowAccessDeniedException() {
+        when(redisTemplate.opsForValue()).thenReturn(valueOperations);
+        when(messageHandler.getMessage("SP-7")).thenReturn("Link expired, please join us again");
+        Assertions.assertThrows(AccessDeniedException.class, () -> {
+            invitationController.invite(TestDataMaker.EMAIL1);
         });
-        verify(exceptionHandler, times(1)).getException("SP-1");
-        verifyNoMoreInteractions(exceptionHandler);
+        verify(redisTemplate, times(1)).opsForValue();
+        verify(messageHandler, times(1)).getMessage("SP-7");
+        verifyNoMoreInteractions(redisTemplate);
+        verifyNoMoreInteractions(messageHandler);
     }
 
     @Test
     public void shouldInviteUser() {
+        when(redisTemplate.opsForValue()).thenReturn(valueOperations);
+        when(redisTemplate.opsForValue().get(anyString())).thenReturn(TestDataMaker.JWT_TOKEN);
+        when(jwtTokenUtil.getSubjectFromToken(TestDataMaker.JWT_TOKEN)).thenReturn(TestDataMaker.EMAIL1);
+        when(jwtTokenUtil.generateToken(TestDataMaker.EMAIL1, new HashMap<>())).thenReturn(TestDataMaker.JWT_TOKEN);
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        when(jwtTokenUtil.generateToken(TestDataMaker.EMAIL1, Collections.EMPTY_MAP)).thenReturn(TestDataMaker.JWT_TOKEN);
-        when(env.getProperty(AppConstants.UI_REGISTER_URL)).thenReturn(TestDataMaker.UI_REGISTER_URL);
-        when(jwtTokenUtil.getJtiFromToken(TestDataMaker.JWT_TOKEN)).thenReturn(UUID.randomUUID().toString());
-        when(redisTemplate.opsForValue()).thenReturn(valueOperations);
-        when(env.getProperty(AppConstants.INVITATION_TOKEN_EXPIRY)).thenReturn(TestDataMaker.INVITATION_TOKEN_EXPIRY);
-        doNothing().when(mailService).sendEmail(any(String.class), any(String.class), any(String.class));
-        ResponseEntity<Void> responseEntity = invitationController.invite(new InvitationRequest(TestDataMaker.EMAIL1));
-        assertThat(HttpStatus.CREATED.value(), equalTo(responseEntity.getStatusCodeValue()));
-        verify(jwtTokenUtil, times(1)).generateToken(TestDataMaker.EMAIL1, Collections.EMPTY_MAP);
-        verify(jwtTokenUtil, times(1)).getJtiFromToken(TestDataMaker.JWT_TOKEN);
-        verifyNoMoreInteractions(jwtTokenUtil);
-        verify(redisTemplate, times(1)).opsForValue();
-        verify(redisTemplate, times(1)).expire(anyString(), anyLong(), any(TimeUnit.class));
+        ResponseEntity<InvitationResponse> responseEntity = invitationController.invite(TestDataMaker.INVITE_ID);
+        assertThat(HttpStatus.OK.value(), equalTo(responseEntity.getStatusCodeValue()));
+        verify(redisTemplate, times(2)).opsForValue();
+        verify(jwtTokenUtil, times(1)).getSubjectFromToken(TestDataMaker.JWT_TOKEN);
+        verify(jwtTokenUtil, times(1)).generateToken(TestDataMaker.EMAIL1, new HashMap<>());
         verifyNoMoreInteractions(redisTemplate);
-        verify(env, times(1)).getProperty(AppConstants.UI_REGISTER_URL);
-        verify(env, times(1)).getProperty(AppConstants.INVITATION_TOKEN_EXPIRY);
-        verifyNoMoreInteractions(env);
-        verify(mailService, times(1)).sendEmail(any(String.class), any(String.class), any(String.class));
-        verifyNoMoreInteractions(mailService);
+        verifyNoMoreInteractions(jwtTokenUtil);
     }
-
 }

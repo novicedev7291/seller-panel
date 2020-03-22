@@ -16,11 +16,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    private String name;
 
     private String email;
 
@@ -50,9 +46,5 @@ public class Users {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="company_id", insertable=false, updatable=false)
     private Companies company;
-
-    public String getFullName() {
-        return StringUtils.isNotBlank(lastName) ? firstName + " " + lastName : firstName;
-    }
 
 }

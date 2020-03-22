@@ -11,8 +11,7 @@ import javax.validation.constraints.NotBlank;
 public final class RegistrationRequest {
 
     @NotBlank(message = AppConstants.MUSTNOTBEEMPTY)
-    private String firstName;
-    private String lastName;
+    private String name;
     private String phone;
     private String countryCode;
     @NotBlank(message = AppConstants.MUSTNOTBEEMPTY)

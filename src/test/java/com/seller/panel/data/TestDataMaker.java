@@ -34,8 +34,7 @@ public class TestDataMaker {
         user.setPassword(faker.internet().password());
         user.setActive(true);
         user.setEmail(faker.internet().emailAddress());
-        user.setFirstName(faker.name().firstName());
-        user.setLastName(faker.name().lastName());
+        user.setName(faker.name().name());
         user.setPhone(faker.phoneNumber().cellPhone());
         user.setCountryCode(faker.country().countryCode2());
         Companies company = makeCompany();
@@ -64,8 +63,7 @@ public class TestDataMaker {
     public static RegistrationRequest makeRegistrationRequestWithMismatchInPassword() {
         Faker faker = new Faker();
         RegistrationRequest request = new RegistrationRequest();
-        request.setFirstName(faker.name().firstName());
-        request.setLastName(faker.name().lastName());
+        request.setName(faker.name().name());
         request.setPhone(faker.phoneNumber().cellPhone());
         request.setCountryCode(faker.country().countryCode2());
         request.setEmail(faker.internet().emailAddress());
@@ -78,8 +76,7 @@ public class TestDataMaker {
     public static RegistrationRequest makeRegistrationRequest() {
         Faker faker = new Faker();
         RegistrationRequest request = new RegistrationRequest();
-        request.setFirstName(faker.name().firstName());
-        request.setLastName(faker.name().lastName());
+        request.setName(faker.name().name());
         request.setPhone(faker.phoneNumber().cellPhone());
         request.setCountryCode(faker.country().countryCode2());
         request.setEmail(faker.internet().emailAddress());

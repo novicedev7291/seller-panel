@@ -36,7 +36,7 @@ public class LoginController extends BaseController {
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         Users user = userService.authenticate(request.getEmail(), request.getPassword());
         Map<String, Object> claims = new HashMap<>();
-        claims.put("name", user.getFullName());
+        claims.put("name", user.getName());
         claims.put("email", user.getEmail());
         claims.put("companyName", user.getCompany().getName());
         claims.put("companyId", user.getCompanyId());

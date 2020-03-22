@@ -39,7 +39,7 @@ public class RegistrationControllerIT extends BaseControllerIT {
         this.mvc.perform(post(EndPointConstants.Registration.REGISTER).content(asJsonString(new RegistrationRequest()))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(AppConstants.MUSTNOTBEEMPTY))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(AppConstants.MUSTNOTBEEMPTY))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(AppConstants.MUSTNOTBEEMPTY))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyName").value(AppConstants.MUSTNOTBEEMPTY))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.confirmPassword").value(AppConstants.MUSTNOTBEEMPTY))
@@ -52,7 +52,7 @@ public class RegistrationControllerIT extends BaseControllerIT {
                 .content(asJsonString(TestDataMaker.makeRegistrationRequestWithWrongEmail()))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(AppConstants.MUSTNOTBEEMPTY))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(AppConstants.MUSTNOTBEEMPTY))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(AppConstants.INVALID))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.companyName").value(AppConstants.MUSTNOTBEEMPTY))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.confirmPassword").value(AppConstants.MUSTNOTBEEMPTY));

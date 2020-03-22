@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -41,9 +42,7 @@ public class JoinController extends BaseController {
     private RedisTemplate redisTemplate;
 
     @PostMapping(EndPointConstants.Join.JOIN)
-    public ResponseEntity<Void> join(@NotNull @RequestBody JoinRequest request) {
-        if(StringUtils.isBlank(request.getEmail()))
-            throw getException("SP-1");
+    public ResponseEntity<Void> join(@Valid @RequestBody JoinRequest request) {
         Pattern pattern = Pattern.compile(AppConstants.EMAIL_REGEX);
         Matcher matcher = pattern.matcher(request.getEmail());
         if(!matcher.matches())

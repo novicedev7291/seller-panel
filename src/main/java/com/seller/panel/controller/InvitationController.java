@@ -33,8 +33,6 @@ public class InvitationController extends BaseController {
     
     @GetMapping(EndPointConstants.Invitation.INVITE)
     public ResponseEntity<InvitationResponse> invite(@NotNull @PathVariable("access_token_id") String accessTokenId) {
-        if(StringUtils.isBlank(accessTokenId))
-            throw getException("SP-3");
         String token = (String) redisTemplate.opsForValue().get(accessTokenId);
         if(StringUtils.isBlank(token))
             throw new AccessDeniedException(getMessage("SP-7"));

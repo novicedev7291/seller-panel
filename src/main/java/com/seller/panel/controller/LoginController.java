@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,12 +35,8 @@ public class LoginController extends BaseController {
     private HttpServletRequest httpServletRequest;
 
     @PostMapping(EndPointConstants.Login.LOGIN)
-    public ResponseEntity<LoginResponse> login(@NotNull @RequestBody LoginRequest request) {
-        if(StringUtils.isBlank(request.getUsername()))
-            throw getException("SP-4");
-        if(StringUtils.isBlank(request.getPassword()))
-            throw getException("SP-5");
-        Users user = userService.authenticate(request.getUsername(), request.getPassword());
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        Users user = userService.authenticate(request.getEmail(), request.getPassword());
         Map<String, Object> claims = new HashMap<>();
         claims.put("name", user.getFullName());
         claims.put("email", user.getEmail());

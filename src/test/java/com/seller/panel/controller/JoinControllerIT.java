@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seller.panel.data.TestDataMaker;
 import com.seller.panel.dto.JoinRequest;
 import com.seller.panel.service.MailService;
+import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,12 @@ public class JoinControllerIT {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
-    private MailService mailService;
-
     @Test
-    public void shouldReturn400WithMessageKeySP1() throws Exception {
+    public void shouldReturn400WithEmailMustNotBeEmpty() throws Exception {
         this.mvc.perform(post(EndPointConstants.Join.JOIN).content(asJsonString(new JoinRequest()))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Email must not be empty"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(AppConstants.MUSTNOTBEEMPTY));
     }
 
     private static String asJsonString(final Object obj) {

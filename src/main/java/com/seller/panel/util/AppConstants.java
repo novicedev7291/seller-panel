@@ -17,5 +17,7 @@ public final class AppConstants {
     public static final String SPRING_REDIS_PORT =  "spring.redis.port";
     public static final String SPRING_REDIS_PASSWORD =  "spring.redis.password";
     public static final String EMAIL_REGEX =  "^(.+)@(.+)$";
+    public static final String GENERIC =  "generic";
+    public static final String MUSTNOTBEEMPTY = "Must not be empty";
 
 }

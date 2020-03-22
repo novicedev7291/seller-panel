@@ -46,16 +46,6 @@ public class InvitationControllerTest extends BaseControllerTest {
     private HttpServletRequest httpServletRequest;
 
     @Test
-    public void shouldThrowProvideIdException() {
-        when(exceptionHandler.getException("SP-3")).thenReturn(new SellerPanelException("Access token id must not be empty"));
-        Assertions.assertThrows(SellerPanelException.class, () -> {
-            invitationController.invite(StringUtils.EMPTY);
-        });
-        verify(exceptionHandler, times(1)).getException("SP-3");
-        verifyNoMoreInteractions(exceptionHandler);
-    }
-
-    @Test
     public void shouldThrowAccessDeniedException() {
         when(redisTemplate.opsForValue()).thenReturn(valueOperations);
         when(messageHandler.getMessage("SP-7")).thenReturn("Link expired, please join us again");

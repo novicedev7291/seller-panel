@@ -52,16 +52,6 @@ public class JoinControllerTest extends BaseControllerTest {
     private ValueOperations valueOperations;
 
     @Test
-    public void shouldThrowProvideEmailException() {
-        when(exceptionHandler.getException("SP-1")).thenReturn(new SellerPanelException("Email must not be empty"));
-        Assertions.assertThrows(SellerPanelException.class, () -> {
-            joinController.join(new JoinRequest());
-        });
-        verify(exceptionHandler, times(1)).getException("SP-1");
-        verifyNoMoreInteractions(exceptionHandler);
-    }
-
-    @Test
     public void shouldThrowInvalidEmailException() {
         when(exceptionHandler.getException("SP-2")).thenReturn(new SellerPanelException("Invalid email"));
         Assertions.assertThrows(SellerPanelException.class, () -> {

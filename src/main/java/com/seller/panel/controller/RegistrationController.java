@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @RestController
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class RegistrationController extends BaseController {
 
     @PostMapping(EndPointConstants.Registration.REGISTER)
-    public ResponseEntity<Void> register(@NotNull @RequestBody RegistrationRequest request) {
+    public ResponseEntity<Void> register(@Valid @RequestBody RegistrationRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

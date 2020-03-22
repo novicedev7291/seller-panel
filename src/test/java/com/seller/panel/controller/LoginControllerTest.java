@@ -41,35 +41,15 @@ public class LoginControllerTest extends BaseControllerTest {
     private HttpServletRequest httpServletRequest;
 
     @Test
-    public void shouldThrowProvideUsernameException() {
-        when(exceptionHandler.getException("SP-4")).thenReturn(new SellerPanelException("Username must not be empty"));
-        Assertions.assertThrows(SellerPanelException.class, () -> {
-            loginController.login(new LoginRequest());
-        });
-        verify(exceptionHandler, times(1)).getException("SP-4");
-        verifyNoMoreInteractions(exceptionHandler);
-    }
-
-    @Test
-    public void shouldThrowProvidePasswordException() {
-        when(exceptionHandler.getException("SP-5")).thenReturn(new SellerPanelException("Password must not be empty"));
-        Assertions.assertThrows(SellerPanelException.class, () -> {
-            loginController.login(new LoginRequest(TestDataMaker.EMAIL1, StringUtils.EMPTY));
-        });
-        verify(exceptionHandler, times(1)).getException("SP-5");
-        verifyNoMoreInteractions(exceptionHandler);
-    }
-
-    @Test
     public void shouldLogin() {
         LoginRequest loginRequest = new LoginRequest(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD);
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        when(userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword())).thenReturn(TestDataMaker.makeUser());
+        when(userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword())).thenReturn(TestDataMaker.makeUser());
         when(jwtTokenUtil.generateToken(anyString(), anyMap())).thenReturn(TestDataMaker.JWT_TOKEN);
         ResponseEntity<LoginResponse> responseEntity = loginController.login(loginRequest);
         assertThat(HttpStatus.CREATED.value(), equalTo(responseEntity.getStatusCodeValue()));
-        verify(userService, times(1)).authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+        verify(userService, times(1)).authenticate(loginRequest.getEmail(), loginRequest.getPassword());
         verify(jwtTokenUtil, times(1)).generateToken(anyString(), anyMap());
         verifyNoMoreInteractions(userService);
         verifyNoMoreInteractions(jwtTokenUtil);

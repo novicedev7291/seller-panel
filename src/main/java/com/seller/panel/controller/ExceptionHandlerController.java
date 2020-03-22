@@ -29,59 +29,35 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
     private static final Log LOG = LogFactory.getLog(ExceptionHandlerController.class);
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleGeneralException(Exception ex, WebRequest req) {
+    public ResponseEntity<Object> handleGeneralException(Exception ex, WebRequest req) {
         LOG.error("Exception occurred", ex);
-        ApiError error = new ApiError();
-        error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        error.setDateTime(Instant.now());
-        error.setMessageKey(AppConstants.GENERIC);
-        error.setMessage(ex.getLocalizedMessage());
-        if (ex.getCause() != null) {
-            error.setCause(ex.getCause().getLocalizedMessage());
-        }
-        return new ResponseEntity<>(error, error.getStatus());
+        Map<String, String> errors = new HashMap<>();
+        errors.put(AppConstants.GENERIC, ex.getLocalizedMessage());
+        return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ApiError> handleAccessDeniedException(Exception ex, WebRequest req) {
+    public ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest req) {
         LOG.error("AccessDeniedException occurred", ex);
-        ApiError error = new ApiError();
-        error.setStatus(HttpStatus.FORBIDDEN);
-        error.setDateTime(Instant.now());
-        error.setMessageKey(AppConstants.GENERIC);
-        error.setMessage(ex.getLocalizedMessage());
-        if (ex.getCause() != null) {
-            error.setCause(ex.getCause().getLocalizedMessage());
-        }
-        return new ResponseEntity<>(error, error.getStatus());
+        Map<String, String> errors = new HashMap<>();
+        errors.put(AppConstants.GENERIC, ex.getLocalizedMessage());
+        return new ResponseEntity<>(errors, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<ApiError> handleExpiredJwtException(Exception ex, WebRequest req) {
+    public ResponseEntity<Object> handleExpiredJwtException(Exception ex, WebRequest req) {
         LOG.error("ExpiredJwtException occurred", ex);
-        ApiError error = new ApiError();
-        error.setStatus(HttpStatus.UNAUTHORIZED);
-        error.setDateTime(Instant.now());
-        error.setMessageKey(AppConstants.GENERIC);
-        error.setMessage(ex.getLocalizedMessage());
-        if (ex.getCause() != null) {
-            error.setCause(ex.getCause().getLocalizedMessage());
-        }
-        return new ResponseEntity<>(error, error.getStatus());
+        Map<String, String> errors = new HashMap<>();
+        errors.put(AppConstants.GENERIC, ex.getLocalizedMessage());
+        return new ResponseEntity<>(errors, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(SellerPanelException.class)
-    public ResponseEntity<ApiError> handleApplicationException(Exception ex, WebRequest req) {
+    public ResponseEntity<Object> handleApplicationException(Exception ex, WebRequest req) {
         LOG.error("SellerPanelException occurred: ", ex);
-        ApiError error = new ApiError();
-        error.setStatus(HttpStatus.BAD_REQUEST);
-        error.setDateTime(Instant.now());
-        error.setMessageKey(AppConstants.GENERIC);
-        error.setMessage(ex.getLocalizedMessage());
-        if (ex.getCause() != null) {
-            error.setCause(ex.getCause().getLocalizedMessage());
-        }
-        return new ResponseEntity<>(error, error.getStatus());
+        Map<String, String> errors = new HashMap<>();
+        errors.put(AppConstants.GENERIC, ex.getLocalizedMessage());
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
     @Override

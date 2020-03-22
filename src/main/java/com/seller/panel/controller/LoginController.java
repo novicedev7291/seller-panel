@@ -36,9 +36,9 @@ public class LoginController extends BaseController {
     @PostMapping(EndPointConstants.Login.LOGIN)
     public ResponseEntity<LoginResponse> login(@NotNull @RequestBody LoginRequest request) {
         if(StringUtils.isBlank(request.getUsername()))
-            throw getException("SP-3");
-        if(StringUtils.isBlank(request.getPassword()))
             throw getException("SP-4");
+        if(StringUtils.isBlank(request.getPassword()))
+            throw getException("SP-5");
         Users user = userService.authenticate(request.getUsername(), request.getPassword());
         Map<String, Object> claims = new HashMap<>();
         claims.put("name", user.getFullName());

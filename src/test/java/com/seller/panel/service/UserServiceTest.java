@@ -27,12 +27,12 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void shouldINvalidateUsernameAndPasswordForWrongUsername() {
         when(userRepository.findByEmailAndActive(TestDataMaker.EMAIL1, true)).thenReturn(null);
-        when(exceptionHandler.getException("SP-5")).thenReturn(new SellerPanelException("Invalid username and password"));
+        when(exceptionHandler.getException("SP-6")).thenReturn(new SellerPanelException("Invalid username and password"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             userService.authenticate(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD);
         });
         verify(userRepository, times(1)).findByEmailAndActive(TestDataMaker.EMAIL1, true);
-        verify(exceptionHandler, times(1)).getException("SP-5");
+        verify(exceptionHandler, times(1)).getException("SP-6");
         verifyNoMoreInteractions(userRepository);
         verifyNoMoreInteractions(exceptionHandler);
     }
@@ -40,12 +40,12 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void shouldINvalidateUsernameAndPasswordForWrongPassword() {
         when(userRepository.findByEmailAndActive(TestDataMaker.EMAIL1, true)).thenReturn(TestDataMaker.makeUser());
-        when(exceptionHandler.getException("SP-5")).thenReturn(new SellerPanelException("Invalid username and password"));
+        when(exceptionHandler.getException("SP-6")).thenReturn(new SellerPanelException("Invalid username and password"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             userService.authenticate(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD);
         });
         verify(userRepository, times(1)).findByEmailAndActive(TestDataMaker.EMAIL1, true);
-        verify(exceptionHandler, times(1)).getException("SP-5");
+        verify(exceptionHandler, times(1)).getException("SP-6");
         verifyNoMoreInteractions(userRepository);
         verifyNoMoreInteractions(exceptionHandler);
     }

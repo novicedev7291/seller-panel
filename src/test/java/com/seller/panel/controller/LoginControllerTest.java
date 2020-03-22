@@ -42,21 +42,21 @@ public class LoginControllerTest extends BaseControllerTest {
 
     @Test
     public void shouldThrowProvideUsernameException() {
-        when(exceptionHandler.getException("SP-3")).thenReturn(new SellerPanelException("Provide username"));
+        when(exceptionHandler.getException("SP-4")).thenReturn(new SellerPanelException("Provide username"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             loginController.login(new LoginRequest());
         });
-        verify(exceptionHandler, times(1)).getException("SP-3");
+        verify(exceptionHandler, times(1)).getException("SP-4");
         verifyNoMoreInteractions(exceptionHandler);
     }
 
     @Test
     public void shouldThrowProvidePasswordException() {
-        when(exceptionHandler.getException("SP-4")).thenReturn(new SellerPanelException("Provide password"));
+        when(exceptionHandler.getException("SP-5")).thenReturn(new SellerPanelException("Provide password"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             loginController.login(new LoginRequest(TestDataMaker.EMAIL1, StringUtils.EMPTY));
         });
-        verify(exceptionHandler, times(1)).getException("SP-4");
+        verify(exceptionHandler, times(1)).getException("SP-5");
         verifyNoMoreInteractions(exceptionHandler);
     }
 

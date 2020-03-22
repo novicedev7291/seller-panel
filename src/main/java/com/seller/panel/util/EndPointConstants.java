@@ -17,12 +17,21 @@ public final class EndPointConstants {
 
     }
 
+    public static final class Join {
+        private Join() {
+            //
+        }
+
+        public static final String JOIN = ENDPOINTS_PREFIX+"/join";
+
+    }
+
     public static final class Invitation {
         private Invitation() {
             //
         }
 
-        public static final String INVITE = ENDPOINTS_PREFIX+"/invite";
+        public static final String INVITE = ENDPOINTS_PREFIX+"/invite/{access_token_id}";
 
     }
 
@@ -31,16 +40,7 @@ public final class EndPointConstants {
             //
         }
 
-        public static final String REGISTER = ENDPOINTS_PREFIX+"/register/{id}";
-
-    }
-
-    public static final class SignUp {
-        private SignUp() {
-            //
-        }
-
-        public static final String SIGNUP = ENDPOINTS_PREFIX+"/signup";
+        public static final String REGISTER = ENDPOINTS_PREFIX+"/register";
 
     }
 

@@ -14,7 +14,7 @@ public class UserService extends BaseService {
     public Users authenticate(String email, String password) {
         Users user = userRepository.findByEmailAndActive(email, true);
         if(user == null || !user.getPassword().equals(password))
-            throw getException("SP-5");
+            throw getException("SP-6");
         return user;
     }
 }

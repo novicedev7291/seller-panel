@@ -41,7 +41,7 @@ public class LoginControllerIT extends BaseControllerIT {
         this.mvc.perform(post(EndPointConstants.Login.LOGIN).content(asJsonString(new LoginRequest()))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-3"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-4"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Provide username"));
     }
 
@@ -50,7 +50,7 @@ public class LoginControllerIT extends BaseControllerIT {
         this.mvc.perform(post(EndPointConstants.Login.LOGIN).content(asJsonString(new LoginRequest(TestDataMaker.EMAIL1, StringUtils.EMPTY)))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-4"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-5"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Provide password"));
     }
 
@@ -61,7 +61,7 @@ public class LoginControllerIT extends BaseControllerIT {
                         TestDataMaker.PASSWORD)))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-5"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value("SP-6"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid username and password"));
     }
 

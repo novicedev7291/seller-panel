@@ -3,7 +3,7 @@ package com.seller.panel.dto;
 import lombok.Data;
 
 @Data
-public class SignUpRequest {
+public class RegistrationRequest {
 
     private String firstName;
     private String lastName;

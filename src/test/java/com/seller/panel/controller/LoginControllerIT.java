@@ -53,8 +53,7 @@ public class LoginControllerIT extends BaseControllerIT {
                         TestDataMaker.PASSWORD)))
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.messageKey").value(AppConstants.GENERIC))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Invalid username and password"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.generic").value("Invalid username and password"));
     }
 
     @Test

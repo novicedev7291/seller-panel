@@ -35,12 +35,16 @@ public class LoginController extends BaseController {
     @PostMapping(EndPointConstants.Login.LOGIN)
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         Users user = userService.authenticate(request.getEmail(), request.getPassword());
+        final Map<String, Object> additionalInfo = new HashMap<>();
+        additionalInfo.put("name", user.getName());
+        additionalInfo.put("email", user.getEmail());
+        additionalInfo.put("companyName", user.getCompany().getName());
+        additionalInfo.put("companyId", user.getCompanyId());
+        additionalInfo.put("companyCode", user.getCompany().getCode());
         Map<String, Object> claims = new HashMap<>();
-        claims.put("name", user.getName());
-        claims.put("email", user.getEmail());
-        claims.put("companyName", user.getCompany().getName());
-        claims.put("companyId", user.getCompanyId());
-        claims.put("companyCode", user.getCompany().getCode());
+        claims.put("additionalInfo", additionalInfo);
+        claims.put("user_name", user.getEmail());
+        claims.put("scope", new Object[]{"read", "write"});
         String token = jwtTokenUtil.generateToken(user.getEmail(), claims);
         httpServletRequest.setAttribute("token", token);
         return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponse(token));

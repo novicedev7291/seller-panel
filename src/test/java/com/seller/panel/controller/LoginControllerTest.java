@@ -42,7 +42,7 @@ public class LoginControllerTest extends BaseControllerTest {
         LoginRequest loginRequest = new LoginRequest(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD);
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        when(userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword())).thenReturn(TestDataMaker.makeUser());
+        when(userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword())).thenReturn(TestDataMaker.makeUsers());
         when(jwtTokenUtil.generateToken(anyString(), anyMap())).thenReturn(TestDataMaker.JWT_TOKEN);
         ResponseEntity<LoginResponse> responseEntity = loginController.login(loginRequest);
         assertThat(HttpStatus.CREATED.value(), equalTo(responseEntity.getStatusCodeValue()));

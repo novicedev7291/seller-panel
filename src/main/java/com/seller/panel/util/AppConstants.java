@@ -20,5 +20,8 @@ public final class AppConstants {
     public static final String MUSTNOTBEEMPTY = "Must not be empty";
     public static final String INVALID = "invalid";
     public static final String VALID_PASSWORD = "xJ3!dij50";
+    public static final String ADDITIONAL_INFO = "additionalInfo";
+    public static final String INVITE = "invite";
+
 
 }

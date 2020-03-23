@@ -31,7 +31,7 @@ public final class EndPointConstants {
             //
         }
 
-        public static final String INVITE = ENDPOINTS_PREFIX+"/invite/{access_token_id}";
+        public static final String INVITE = ENDPOINTS_PREFIX+"/"+AppConstants.INVITE+"/{access_token_id}";
 
     }
 
@@ -50,6 +50,16 @@ public final class EndPointConstants {
         }
 
         public static final String LOGIN = ENDPOINTS_PREFIX+"/login";
+
+    }
+
+    public static final class Users {
+        private Users() {
+            //
+        }
+
+        public static final String USERS = ENDPOINTS_PREFIX+"/users";
+        public static final String USERS_BY_ID = USERS+"/{id}";
 
     }
 

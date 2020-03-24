@@ -1,4 +1,4 @@
-package com.seller.panel.config;
+package com.seller.panel.filter;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

@@ -3,11 +3,22 @@ package com.seller.panel.data;
 import com.github.javafaker.Faker;
 import com.seller.panel.dto.Registration;
 import com.seller.panel.dto.RegistrationRequest;
+import com.seller.panel.dto.User;
 import com.seller.panel.model.Companies;
+import com.seller.panel.model.Permissions;
+import com.seller.panel.model.Roles;
 import com.seller.panel.model.Users;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.mail.SimpleMailMessage;
+
+import javax.management.relation.Role;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class TestDataMaker {
 
@@ -27,7 +38,7 @@ public class TestDataMaker {
     public static final String REDIS_PORT = "6379";
     public static final String REDIS_PASSWORD = "redis_pass";
 
-    public static Users makeUser() {
+    public static Users makeUsers() {
         Faker faker = new Faker();
         Users user = new Users();
         user.setId(faker.random().nextLong());
@@ -40,7 +51,31 @@ public class TestDataMaker {
         Companies company = makeCompany();
         user.setCompany(company);
         user.setCompanyId(company.getId());
+        Set<Roles> roles = new HashSet<>();
+        roles.add(makeRoles());
+        roles.add(makeRoles());
+        user.setRoles(roles);
         return user;
+    }
+
+    public static Roles makeRoles(){
+        Faker faker = new Faker();
+        Roles role = new Roles();
+        role.setId(faker.random().nextLong());
+        role.setName(faker.name().name());
+        Set<Permissions> permissions = new HashSet<>();
+        permissions.add(makePermissions());
+        permissions.add(makePermissions());
+        role.setPermissions(permissions);
+        return role;
+    }
+
+    public static Permissions makePermissions(){
+        Faker faker = new Faker();
+        Permissions permission = new Permissions();
+        permission.setId(faker.random().nextLong());
+        permission.setName(faker.name().name());
+        return permission;
     }
 
     public static Companies makeCompany() {
@@ -96,6 +131,27 @@ public class TestDataMaker {
         Registration request = new Registration();
         BeanUtils.copyProperties(makeRegistrationRequestWithMismatchInPassword(), request);
         return request;
+    }
+
+    public static User makeUser() {
+        User user = new User();
+        BeanUtils.copyProperties(makeUsers(), user);
+        return user;
+    }
+
+    public static Map<String, Object> makeAdditionalInfo() {
+        Map<String, Object> additionalInfo = new HashMap<>();
+        additionalInfo.put("companyId", NumberUtils.LONG_ONE);
+        return additionalInfo;
+    }
+
+    public static SimpleMailMessage makeSimpleMailMessage() {
+        Faker faker = new Faker();
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(faker.internet().emailAddress());
+        simpleMailMessage.setSubject(faker.name().name());
+        simpleMailMessage.setText(simpleMailMessage.getSubject());
+        return simpleMailMessage;
     }
 
 }

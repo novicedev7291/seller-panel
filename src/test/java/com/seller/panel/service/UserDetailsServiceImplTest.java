@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @ExtendWith(MockitoExtension.class)
 public class UserDetailsServiceImplTest {

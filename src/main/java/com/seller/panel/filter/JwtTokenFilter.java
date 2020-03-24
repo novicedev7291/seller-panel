@@ -1,18 +1,5 @@
 package com.seller.panel.filter;
 
-import java.io.IOException;
-import java.util.Map;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
-import com.github.javafaker.App;
 import com.seller.panel.controller.ExceptionHandlerController;
 import com.seller.panel.handler.ExceptionHandler;
 import com.seller.panel.util.AppConstants;
@@ -21,6 +8,12 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Map;
 
 @Component
 public class JwtTokenFilter extends BaseFilter implements Filter {

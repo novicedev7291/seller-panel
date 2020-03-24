@@ -1,19 +1,13 @@
 package com.seller.panel.handler;
 
-import com.seller.panel.model.Permissions;
-import com.seller.panel.model.Roles;
 import com.seller.panel.model.Users;
 import com.seller.panel.repository.UserRepository;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.ObjectError;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
 
 public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
 

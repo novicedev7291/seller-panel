@@ -29,7 +29,7 @@ public abstract class BaseController {
     }
 
     public Long getCompanyId() {
-        return Long.parseLong(getData("companyId", "nc-2"));
+        return Long.parseLong(getData("companyId", "SP-9"));
     }
 
     @SuppressWarnings("unchecked")

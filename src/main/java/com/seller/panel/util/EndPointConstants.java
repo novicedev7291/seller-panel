@@ -6,7 +6,7 @@ public final class EndPointConstants {
         //
     }
 
-    public static final String ENDPOINTS_PREFIX = "/api/v1";
+    public static final String ENDPOINTS_PREFIX = "";
 
     public static final class Ping {
         private Ping() {

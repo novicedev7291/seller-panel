@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import com.seller.panel.dto.Registration;
 import com.seller.panel.dto.RegistrationRequest;
 import com.seller.panel.dto.User;
+import com.seller.panel.dto.UserRequest;
 import com.seller.panel.model.Companies;
 import com.seller.panel.model.Permissions;
 import com.seller.panel.model.Roles;
@@ -151,6 +152,18 @@ public class TestDataMaker {
         simpleMailMessage.setSubject(faker.name().name());
         simpleMailMessage.setText(simpleMailMessage.getSubject());
         return simpleMailMessage;
+    }
+
+    public static UserRequest makeUserRequestWithMismatchInPassword() {
+        UserRequest request = new UserRequest();
+        BeanUtils.copyProperties(makeRegistrationRequestWithMismatchInPassword(), request);
+        return request;
+    }
+
+    public static UserRequest makeUserRequest() {
+        UserRequest request = new UserRequest();
+        BeanUtils.copyProperties(makeRegistrationRequest(), request);
+        return request;
     }
 
 }

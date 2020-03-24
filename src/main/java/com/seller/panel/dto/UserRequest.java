@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class RegistrationRequest {
+public class UserRequest {
 
     @NotBlank(message = AppConstants.MUSTNOTBEEMPTY)
     private String name;
@@ -18,9 +18,8 @@ public class RegistrationRequest {
     @Email(message = AppConstants.INVALID)
     private String email;
     @NotBlank(message = AppConstants.MUSTNOTBEEMPTY)
-    private String companyName;
-    @NotBlank(message = AppConstants.MUSTNOTBEEMPTY)
     private String confirmPassword;
     @ValidPassword
     private String password;
+
 }

@@ -8,6 +8,15 @@ public final class EndPointConstants {
 
     public static final String ENDPOINTS_PREFIX = "";
 
+    public static final class OAuth {
+        private OAuth() {
+            //
+        }
+
+        public static final String OAUTH_TOKEN = "/oauth/token";
+
+    }
+
     public static final class Ping {
         private Ping() {
             //

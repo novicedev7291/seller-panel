@@ -1,12 +1,6 @@
 package com.seller.panel.service;
 
 import com.seller.panel.data.TestDataMaker;
-import com.seller.panel.dto.User;
-import com.seller.panel.exception.SellerPanelException;
-import com.seller.panel.model.Users;
-import com.seller.panel.repository.UserRepository;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,8 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

@@ -9,8 +9,6 @@ import com.seller.panel.exception.CustomOAuthException;
 import com.seller.panel.util.AppConstants;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CustomOAuthExceptionSerializer extends StdSerializer<CustomOAuthException> {
 

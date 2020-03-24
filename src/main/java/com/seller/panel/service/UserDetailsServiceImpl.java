@@ -5,17 +5,13 @@ import com.seller.panel.model.Permissions;
 import com.seller.panel.model.Roles;
 import com.seller.panel.model.Users;
 import com.seller.panel.repository.UserRepository;
-import org.apache.commons.lang.StringUtils;
-import org.aspectj.bridge.IMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;

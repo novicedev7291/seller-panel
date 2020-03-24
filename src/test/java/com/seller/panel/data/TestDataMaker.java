@@ -14,7 +14,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.mail.SimpleMailMessage;
 
-import javax.management.relation.Role;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

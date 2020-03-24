@@ -37,15 +37,13 @@ public class JwtTokenFilter extends BaseFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		final HttpServletRequest request = (HttpServletRequest) req;
-		if (!request.getRequestURI().startsWith(request.getContextPath() + "/api") ||
+		if (request.getRequestURI().startsWith(request.getContextPath() + EndPointConstants.OAuth.OAUTH_TOKEN) ||
 				request.getRequestURI().startsWith(request.getContextPath() + EndPointConstants.Join.JOIN) ||
 				request.getRequestURI().startsWith(request.getContextPath() + EndPointConstants.ENDPOINTS_PREFIX
 						+"/"+AppConstants.INVITE) ||
-				request.getRequestURI().startsWith(request.getContextPath() + EndPointConstants.Registration.REGISTER)) {
-			chain.doFilter(req, res);
-			return;
-		}
-		if (request.getRequestURI().startsWith(request.getContextPath() + "/api/v1/login")) {
+				request.getRequestURI().startsWith(request.getContextPath()
+						+ EndPointConstants.Registration.REGISTER) ||
+				request.getRequestURI().startsWith(request.getContextPath() + EndPointConstants.Login.LOGIN)) {
 			chain.doFilter(req, res);
 			return;
 		}

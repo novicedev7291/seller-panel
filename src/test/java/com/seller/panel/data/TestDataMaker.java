@@ -13,7 +13,6 @@ import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.Cookie;

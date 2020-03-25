@@ -1,26 +1,20 @@
 package com.seller.panel.filter;
 
-import com.github.javafaker.App;
 import com.seller.panel.controller.ExceptionHandlerController;
 import com.seller.panel.data.TestDataMaker;
 import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.handler.ExceptionHandler;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -31,8 +25,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})

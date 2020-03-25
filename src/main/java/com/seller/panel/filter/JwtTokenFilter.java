@@ -1,6 +1,5 @@
 package com.seller.panel.filter;
 
-import com.github.javafaker.App;
 import com.seller.panel.controller.ExceptionHandlerController;
 import com.seller.panel.handler.ExceptionHandler;
 import com.seller.panel.util.AppConstants;

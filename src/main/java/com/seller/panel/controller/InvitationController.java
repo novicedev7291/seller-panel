@@ -1,6 +1,7 @@
 package com.seller.panel.controller;
 
 import com.seller.panel.dto.InvitationResponse;
+import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import com.seller.panel.util.JwtTokenUtil;
 import org.apache.commons.lang.StringUtils;
@@ -38,7 +39,7 @@ public class InvitationController extends BaseController {
             throw new AccessDeniedException(getMessage("SP-2"));
         String email = jwtTokenUtil.getSubjectFromToken(token);
         String newToken = jwtTokenUtil.generateToken(email, new HashMap<>());
-        httpServletRequest.setAttribute("token", newToken);
+        httpServletRequest.setAttribute(AppConstants.TOKEN, newToken);
         return ResponseEntity.status(HttpStatus.OK).body(new InvitationResponse(email));
     }
 

@@ -1,5 +1,6 @@
 package com.seller.panel.filter;
 
+import com.github.javafaker.App;
 import com.seller.panel.controller.ExceptionHandlerController;
 import com.seller.panel.handler.ExceptionHandler;
 import com.seller.panel.util.AppConstants;
@@ -40,7 +41,7 @@ public class JwtTokenFilter extends BaseFilter implements Filter {
 			chain.doFilter(req, res);
 			return;
 		}
-		String authHeader = request.getHeader("authorization");
+		String authHeader = request.getHeader(AppConstants.AUTHORIZATION);
 		if(StringUtils.isBlank(authHeader)) {
 			String headerPayload = null;
 			String signature = null;
@@ -48,12 +49,13 @@ public class JwtTokenFilter extends BaseFilter implements Filter {
 			if(cookies != null) {
 				for (Cookie ck : cookies) {
 					if (ck.getName().equals(AppConstants.HEADER_PAYLOAD))
-						headerPayload = ck.getName().trim();
+						headerPayload = ck.getValue().trim();
 					if (ck.getName().equals(AppConstants.SIGNATURE))
-						signature = ck.getName();
+						signature = ck.getValue().trim();
 				}
+				if(StringUtils.isNotBlank(headerPayload) && StringUtils.isNotBlank(signature))
+					authHeader = AppConstants.BEARER+headerPayload+"."+signature;
 			}
-			authHeader = "bearer "+headerPayload+"."+signature;
 		}
 		if (StringUtils.isBlank(authHeader) || authHeader.trim().length() < 7) {
 			handleException(res, getException("SP-6"));
@@ -62,7 +64,7 @@ public class JwtTokenFilter extends BaseFilter implements Filter {
 		OAuth2AccessToken accessToken = resourceServerTokenServices.readAccessToken(authHeader.trim().substring(7));
 		Map<String, Object> additionalInfo = accessToken.getAdditionalInformation();
 		request.setAttribute(AppConstants.ADDITIONAL_INFO, additionalInfo);
-		request.setAttribute("token", authHeader.trim().substring(7));
+		request.setAttribute(AppConstants.TOKEN, authHeader.trim().substring(7));
 		chain.doFilter(req, res);
 	}
 

@@ -13,8 +13,10 @@ import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 
+import javax.servlet.http.Cookie;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -164,6 +166,13 @@ public class TestDataMaker {
         UserRequest request = new UserRequest();
         BeanUtils.copyProperties(makeRegistrationRequest(), request);
         return request;
+    }
+
+    public static Cookie[] makeCookies() {
+        String[] tokenPart = TestDataMaker.JWT_TOKEN.split("[.]");
+        return new Cookie[]{new Cookie(AppConstants.HEADER_PAYLOAD,
+                            tokenPart[0].concat(".").concat(tokenPart[1])),
+                        new Cookie(AppConstants.SIGNATURE, tokenPart[2])};
     }
 
 }

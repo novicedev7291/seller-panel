@@ -42,8 +42,4 @@ public abstract class BaseFilter {
         return exceptionHandler.getException(key);
     }
 
-    protected SellerPanelException getException(String key, Object... params) {
-        return exceptionHandler.getException(key, params);
-    }
-
 }

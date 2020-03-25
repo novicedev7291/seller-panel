@@ -3,6 +3,7 @@ package com.seller.panel.controller;
 import com.seller.panel.dto.Registration;
 import com.seller.panel.dto.RegistrationRequest;
 import com.seller.panel.service.RegistrationService;
+import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import com.seller.panel.util.JwtTokenUtil;
 import org.apache.commons.lang.StringUtils;
@@ -40,7 +41,7 @@ public class RegistrationController extends BaseController {
         Long userId = registrationService.createCompanyAndUser(registration);
         Map<String, Object> claims = new HashMap<>();
         String token = jwtTokenUtil.generateToken(StringUtils.EMPTY, claims);
-        httpServletRequest.setAttribute("token", token);
+        httpServletRequest.setAttribute(AppConstants.TOKEN, token);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

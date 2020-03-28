@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
+import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest(classes = SellerPanelApplication.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -19,6 +20,9 @@ public abstract class BaseControllerIT {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    protected MockMvc mvc;
 
     @BeforeTestClass
     public void setUp() {

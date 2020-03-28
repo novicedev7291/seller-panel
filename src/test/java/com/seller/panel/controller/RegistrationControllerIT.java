@@ -20,15 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class RegistrationControllerIT extends BaseControllerIT {
 
-    @Autowired
-    private MockMvc mvc;
-
-    @LocalServerPort
-    int randomServerPort;
-
-    @Autowired
-    private HttpServletResponse httpServletResponse;
-
     @BeforeTestClass
     public void setUp() {
         super.setUp();

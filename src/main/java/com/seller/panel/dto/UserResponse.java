@@ -10,6 +10,6 @@ public class UserResponse {
     private String email;
     private String phone;
     private String countryCode;
-    private Boolean active;
+    private Boolean active = Boolean.TRUE;
 
 }

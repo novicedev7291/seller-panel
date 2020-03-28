@@ -2,8 +2,10 @@ package com.seller.panel.controller;
 
 import com.seller.panel.data.TestDataMaker;
 import com.seller.panel.dto.User;
+import com.seller.panel.dto.UserRequest;
 import com.seller.panel.dto.UserResponse;
 import com.seller.panel.exception.SellerPanelException;
+import com.seller.panel.model.Users;
 import com.seller.panel.service.UserService;
 import com.seller.panel.util.AppConstants;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -69,6 +71,39 @@ public class UserControllerTest extends BaseControllerTest {
         verify(this.request, times(1)).getAttribute(AppConstants.ADDITIONAL_INFO);
         verifyNoMoreInteractions(userService);
         verifyNoMoreInteractions(this.request);
-
     }
+
+    @Test
+    public void shouldThrow400ForPasswordMismatchWhileCreatingUser() {
+        when(exceptionHandler.getException("SP-3")).thenReturn(new SellerPanelException("Passwords are not equal"));
+        Assertions.assertThrows(SellerPanelException.class, () -> {
+            userController.createUsers(TestDataMaker.makeUserRequestWithMismatchInPassword());
+        });
+        verify(exceptionHandler, times(1)).getException("SP-3");
+        verifyNoMoreInteractions(exceptionHandler);
+    }
+
+    @Test
+    public void shouldCreateUser() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+        UserRequest actual = TestDataMaker.makeUserRequest();
+        when(userService.createUser(any(Users.class))).thenReturn(NumberUtils.LONG_ONE);
+        when(this.request.getAttribute(AppConstants.ADDITIONAL_INFO)).thenReturn(TestDataMaker.makeAdditionalInfo());
+        ResponseEntity<UserResponse> responseEntity = userController.createUsers(actual);
+        assertThat(HttpStatus.CREATED.value(), equalTo(responseEntity.getStatusCodeValue()));
+        UserResponse expected = responseEntity.getBody();
+        assertThat(NumberUtils.LONG_ONE, equalTo(expected.getId()));
+        assertThat(actual.getName(), equalTo(expected.getName()));
+        assertThat(actual.getEmail(), equalTo(expected.getEmail()));
+        assertThat(actual.getPhone(), equalTo(expected.getPhone()));
+        assertThat(actual.getCountryCode(), equalTo(expected.getCountryCode()));
+        assertThat(Boolean.TRUE, equalTo(expected.getActive()));
+        verify(userService, times(1)).createUser(any(Users.class));
+        verify(this.request, times(1)).getAttribute(AppConstants.ADDITIONAL_INFO);
+        verifyNoMoreInteractions(userService);
+        verifyNoMoreInteractions(this.request);
+    }
+
+
 }

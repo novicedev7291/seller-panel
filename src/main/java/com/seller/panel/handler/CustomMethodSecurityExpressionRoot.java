@@ -23,8 +23,8 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot i
         Class c = getThis().getClass();
         Method m = c.getMethod("getCompanyId");
         Long companyId = (Long) m.invoke(getThis(), null);
-        Users user = userRepository.findByEmailAndCompanyIdAndActive(
-                (String)authentication.getPrincipal(), companyId, true);
+        Users user = userRepository.findByEmailAndCompanyId(
+                (String)authentication.getPrincipal(), companyId);
 
         /*Set<Roles> roles = user.getRoles();
         Set<Permissions> permissions = new HashSet<>();

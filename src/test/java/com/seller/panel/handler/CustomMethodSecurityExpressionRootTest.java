@@ -36,12 +36,12 @@ public class CustomMethodSecurityExpressionRootTest {
         customMethodSecurityExpressionRoot.getFilterObject();
         customMethodSecurityExpressionRoot.setReturnObject(this);
         customMethodSecurityExpressionRoot.getReturnObject();
-        when(userRepository.findByEmailAndCompanyIdAndActive(null, NumberUtils.LONG_ONE, true))
+        when(userRepository.findByEmailAndCompanyId(null, NumberUtils.LONG_ONE))
                         .thenReturn(TestDataMaker.makeUsers());
         Boolean isAuthorized = customMethodSecurityExpressionRoot.isAuthorized("Test Verb", "Test Link");
         assertThat(isAuthorized, equalTo(true));
         verify(userRepository, times(1))
-                .findByEmailAndCompanyIdAndActive(null, NumberUtils.LONG_ONE, true);
+                .findByEmailAndCompanyId(null, NumberUtils.LONG_ONE);
         verifyNoMoreInteractions(userRepository);
     }
 

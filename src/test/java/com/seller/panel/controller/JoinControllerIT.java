@@ -30,13 +30,5 @@ public class JoinControllerIT extends BaseControllerIT {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(AppConstants.INVALID));
     }
 
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
 

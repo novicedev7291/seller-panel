@@ -8,6 +8,15 @@ public final class EndPointConstants {
 
     public static final String ENDPOINTS_PREFIX = "";
 
+    public static final class Categories {
+        private Categories() {
+            //
+        }
+
+        public static final String CATEGORIES = "/categories";
+
+    }
+
     public static final class OAuth {
         private OAuth() {
             //

@@ -20,8 +20,8 @@ public class UserService extends BaseService {
     private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Users authenticate(String email, String password) {
-        Users user = userRepository.findByEmailAndActive(email, true);
-        if(user == null || !encoder.matches(password, user.getPassword()))
+        Users user = userRepository.findByEmail(email);
+        if(user == null || !user.getActive() || !encoder.matches(password, user.getPassword()))
             throw getException("SP-1");
         return user;
     }

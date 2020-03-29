@@ -19,5 +19,4 @@ public class InvitationControllerIT extends BaseControllerIT {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.generic").value("Link expired, please join us again"));
     }
 
-
 }

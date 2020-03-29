@@ -22,8 +22,8 @@ public class CustomTokenEnhancer implements TokenEnhancer {
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
-        Users user = userRepository.findByEmailAndActive(
-                ((UserDetails) oAuth2Authentication.getPrincipal()).getUsername(), true);
+        Users user = userRepository.findByEmail(
+                ((UserDetails) oAuth2Authentication.getPrincipal()).getUsername());
         Companies company = user.getCompany();
         final Map<String, Object> additionalInfo = new HashMap<>();
         additionalInfo.put("companyId", company.getId());

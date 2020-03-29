@@ -1,14 +1,8 @@
 package com.seller.panel.data;
 
 import com.github.javafaker.Faker;
-import com.seller.panel.dto.Registration;
-import com.seller.panel.dto.RegistrationRequest;
-import com.seller.panel.dto.User;
-import com.seller.panel.dto.UserRequest;
-import com.seller.panel.model.Companies;
-import com.seller.panel.model.Permissions;
-import com.seller.panel.model.Roles;
-import com.seller.panel.model.Users;
+import com.seller.panel.dto.*;
+import com.seller.panel.model.*;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -173,6 +167,24 @@ public class TestDataMaker {
         return new Cookie[]{new Cookie(AppConstants.HEADER_PAYLOAD,
                             tokenPart[0].concat(".").concat(tokenPart[1])),
                         new Cookie(AppConstants.SIGNATURE, tokenPart[2])};
+    }
+
+    public static Categories makeCategories() {
+        Faker faker = new Faker();
+        Categories categories = new Categories();
+        categories.setId(faker.random().nextLong());
+        categories.setName(faker.name().name());
+        Companies company = makeCompany();
+        categories.setCompany(company);
+        categories.setCompanyId(company.getId());
+        return categories;
+    }
+
+    public static CategoryRequest makeCategoryRequest() {
+        Faker faker = new Faker();
+        CategoryRequest request = new CategoryRequest();
+        request.setName(faker.name().name());
+        return request;
     }
 
 }

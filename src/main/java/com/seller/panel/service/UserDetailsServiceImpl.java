@@ -1,5 +1,6 @@
 package com.seller.panel.service;
 
+import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.handler.MessageHandler;
 import com.seller.panel.model.Permissions;
 import com.seller.panel.model.Roles;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +36,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepository.findByEmailAndActive(username, true);
+        Users user = userRepository.findByEmail(username);
+        if (user == null || !user.getActive())
+            throw new OAuth2Exception(messageHandler.getMessage("SP-1"));
         return new User(user.getEmail(), user.getPassword(), user.getActive(), true,
                 true, true, getGrantedAuthorities(user));
     }

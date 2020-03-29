@@ -52,13 +52,5 @@ public class LoginControllerIT extends BaseControllerIT {
                 .andExpect(MockMvcResultMatchers.cookie().value(AppConstants.SIGNATURE, signature));
     }
 
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
 

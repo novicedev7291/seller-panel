@@ -22,9 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AuthenticationIT extends BaseControllerIT {
 
-    private static final String GRANT_CLIENT_ID = "sp-test-client-id";
-    private static final String GRANT_TYPE = "password";
-
     @Autowired
     private WebApplicationContext wac;
 
@@ -54,22 +51,6 @@ public class AuthenticationIT extends BaseControllerIT {
 
     @Test
     public void shouldAuthenticate() throws Exception {
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type", GRANT_TYPE);
-        params.add("client_id", GRANT_CLIENT_ID);
-        params.add("username", TestDataMaker.EMAIL1);
-        params.add("password", TestDataMaker.PASSWORD);
-
-        ResultActions result
-                = mvc.perform(post(EndPointConstants.OAuth.OAUTH_TOKEN)
-                .params(params)
-                .with(httpBasic("sp-test-client-id",TestDataMaker.PASSWORD))
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-
-        String resultString = result.andReturn().getResponse().getContentAsString();
-
-        JacksonJsonParser jsonParser = new JacksonJsonParser();
-        assertThat(jsonParser.parseMap(resultString).get("access_token").toString(), notNullValue());
+        assertThat(fetchAccessToken(), notNullValue());
     }
 }

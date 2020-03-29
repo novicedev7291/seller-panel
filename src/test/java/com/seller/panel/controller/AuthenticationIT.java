@@ -5,6 +5,7 @@ import com.seller.panel.util.EndPointConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
+import org.springframework.http.MediaType;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.context.event.annotation.BeforeTestExecution;
@@ -53,7 +54,7 @@ public class AuthenticationIT extends BaseControllerIT {
                 = mvc.perform(post(EndPointConstants.OAuth.OAUTH_TOKEN)
                 .params(params)
                 .with(httpBasic("sp-test-client-id", TestDataMaker.PASSWORD))
-                .accept("application/json;charset=UTF-8"))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -69,9 +70,8 @@ public class AuthenticationIT extends BaseControllerIT {
                 = mvc.perform(post(EndPointConstants.OAuth.OAUTH_TOKEN)
                 .params(params)
                 .with(httpBasic("sp-test-client-id",TestDataMaker.PASSWORD))
-                .accept("application/json;charset=UTF-8"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"));
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
 
         String resultString = result.andReturn().getResponse().getContentAsString();
 

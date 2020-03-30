@@ -169,22 +169,4 @@ public class TestDataMaker {
                         new Cookie(AppConstants.SIGNATURE, tokenPart[2])};
     }
 
-    public static Categories makeCategories() {
-        Faker faker = new Faker();
-        Categories categories = new Categories();
-        categories.setId(faker.random().nextLong());
-        categories.setName(faker.name().name());
-        Companies company = makeCompany();
-        categories.setCompany(company);
-        categories.setCompanyId(company.getId());
-        return categories;
-    }
-
-    public static CategoryRequest makeCategoryRequest() {
-        Faker faker = new Faker();
-        CategoryRequest request = new CategoryRequest();
-        request.setName(faker.name().name());
-        return request;
-    }
-
 }

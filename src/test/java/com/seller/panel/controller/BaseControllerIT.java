@@ -3,7 +3,6 @@ package com.seller.panel.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seller.panel.SellerPanelApplication;
 import com.seller.panel.data.TestDataMaker;
-import com.seller.panel.repository.CategoryRepository;
 import com.seller.panel.repository.CompanyRepository;
 import com.seller.panel.repository.UserRepository;
 import com.seller.panel.util.EndPointConstants;
@@ -18,8 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-
-import java.io.UnsupportedEncodingException;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

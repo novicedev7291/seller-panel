@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<Users, Long> {
 
-    Users findByEmailAndCompanyIdAndActive(String email, Long companyId, Boolean active);
-    Users findByEmailAndActive(String email, Boolean active);
+    Users findByEmailAndCompanyId(String email, Long companyId);
     Users findByEmail(String email);
     Users findByIdAndCompanyId(Long id, Long companyId);
 

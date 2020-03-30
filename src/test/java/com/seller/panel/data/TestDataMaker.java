@@ -1,14 +1,8 @@
 package com.seller.panel.data;
 
 import com.github.javafaker.Faker;
-import com.seller.panel.dto.Registration;
-import com.seller.panel.dto.RegistrationRequest;
-import com.seller.panel.dto.User;
-import com.seller.panel.dto.UserRequest;
-import com.seller.panel.model.Companies;
-import com.seller.panel.model.Permissions;
-import com.seller.panel.model.Roles;
-import com.seller.panel.model.Users;
+import com.seller.panel.dto.*;
+import com.seller.panel.model.*;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import org.apache.commons.lang3.math.NumberUtils;

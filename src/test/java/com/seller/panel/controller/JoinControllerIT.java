@@ -6,9 +6,7 @@ import com.seller.panel.dto.JoinRequest;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -30,14 +28,6 @@ public class JoinControllerIT extends BaseControllerIT {
                 .header(TestDataMaker.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(AppConstants.INVALID));
-    }
-
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

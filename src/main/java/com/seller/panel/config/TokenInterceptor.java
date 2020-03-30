@@ -16,7 +16,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     public void afterCompletion
             (HttpServletRequest request, HttpServletResponse response, Object
                     handler, Exception exception) throws Exception {
-        String token = (String) request.getAttribute("token");
+        String token = (String) request.getAttribute(AppConstants.TOKEN);
         if(StringUtils.isNotBlank(token)) {
             String[] tokenPart = token.split("[.]");
             Cookie headerPayload = new Cookie(AppConstants.HEADER_PAYLOAD, tokenPart[0].concat(".").concat(tokenPart[1]));

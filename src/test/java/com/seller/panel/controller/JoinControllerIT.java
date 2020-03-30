@@ -16,9 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class JoinControllerIT extends BaseControllerIT {
 
-    @Autowired
-    private MockMvc mvc;
-
     @Test
     public void shouldReturn400WithEmailMustNotBeEmpty() throws Exception {
         this.mvc.perform(post(EndPointConstants.Join.JOIN).content(asJsonString(new JoinRequest()))

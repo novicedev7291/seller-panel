@@ -105,5 +105,4 @@ public class UserControllerTest extends BaseControllerTest {
         verifyNoMoreInteractions(this.request);
     }
 
-
 }

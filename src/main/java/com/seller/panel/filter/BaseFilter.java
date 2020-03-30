@@ -7,6 +7,7 @@ import com.seller.panel.controller.ExceptionHandlerController;
 import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.handler.ExceptionHandler;
 import org.codehaus.jackson.map.util.ISO8601DateFormat;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.ServletResponse;
@@ -28,7 +29,7 @@ public abstract class BaseFilter {
         HttpServletResponse res = (HttpServletResponse) response;
         ResponseEntity<Object> errorDTO = exceptionHandlerController.handleApplicationException(ex, null);
         res.setStatus(errorDTO.getStatusCodeValue());
-        res.setContentType("application/json");
+        res.setContentType(MediaType.APPLICATION_JSON_VALUE);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -40,10 +41,6 @@ public abstract class BaseFilter {
 
     protected SellerPanelException getException(String key) {
         return exceptionHandler.getException(key);
-    }
-
-    protected SellerPanelException getException(String key, Object... params) {
-        return exceptionHandler.getException(key, params);
     }
 
 }

@@ -15,6 +15,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.mail.SimpleMailMessage;
 
+import javax.servlet.http.Cookie;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class TestDataMaker {
     public static final String INVITE_ID = "94333c51-c619-4664-b7c0-61179c930617";
     public static final String UI_INVITE_URL = "http://localhost"+PORT+ EndPointConstants.ENDPOINTS_PREFIX+"invite/{0}";
     public static final String PASSWORD = "Passw@rd";
+    public static final String WRONG_PASSWORD = "123456";
     public static final String JOIN_TOKEN_EXPIRY = "7200000";
     public static final String REDIS_HOST = "localhost";
     public static final String REDIS_PORT = "6379";
@@ -42,7 +44,7 @@ public class TestDataMaker {
         Faker faker = new Faker();
         Users user = new Users();
         user.setId(faker.random().nextLong());
-        user.setPassword(faker.internet().password());
+        user.setPassword("$2a$10$701uMTqsFG1kfL/ymQGd3.ii0j55jnnW6d5dkJLuEAB6SZ2UfyhfO");
         user.setActive(true);
         user.setEmail(faker.internet().emailAddress());
         user.setName(faker.name().name());
@@ -164,6 +166,13 @@ public class TestDataMaker {
         UserRequest request = new UserRequest();
         BeanUtils.copyProperties(makeRegistrationRequest(), request);
         return request;
+    }
+
+    public static Cookie[] makeCookies() {
+        String[] tokenPart = TestDataMaker.JWT_TOKEN.split("[.]");
+        return new Cookie[]{new Cookie(AppConstants.HEADER_PAYLOAD,
+                            tokenPart[0].concat(".").concat(tokenPart[1])),
+                        new Cookie(AppConstants.SIGNATURE, tokenPart[2])};
     }
 
 }

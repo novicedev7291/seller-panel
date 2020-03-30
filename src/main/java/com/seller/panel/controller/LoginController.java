@@ -4,6 +4,7 @@ import com.seller.panel.dto.LoginRequest;
 import com.seller.panel.dto.LoginResponse;
 import com.seller.panel.model.Users;
 import com.seller.panel.service.UserService;
+import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import com.seller.panel.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class LoginController extends BaseController {
         claims.put("user_name", user.getEmail());
         claims.put("scope", new Object[]{"read", "write"});
         String token = jwtTokenUtil.generateToken(user.getEmail(), claims);
-        httpServletRequest.setAttribute("token", token);
+        httpServletRequest.setAttribute(AppConstants.TOKEN, token);
         return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponse(token));
     }
 

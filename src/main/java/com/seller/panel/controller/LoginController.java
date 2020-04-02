@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
         additionalInfo.put("name", user.getName());
         additionalInfo.put("email", user.getEmail());
         additionalInfo.put("companyName", user.getCompany().getName());
-        additionalInfo.put("companyId", user.getCompanyId());
+        additionalInfo.put(AppConstants.COMPANY_ID, user.getCompanyId());
         additionalInfo.put("companyCode", user.getCompany().getCode());
         Map<String, Object> claims = new HashMap<>();
         claims.put("additionalInfo", additionalInfo);

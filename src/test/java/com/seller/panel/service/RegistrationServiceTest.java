@@ -48,7 +48,7 @@ public class RegistrationServiceTest {
     public void shouldCreateCompanyAndUser() {
         when(companyRepository.save(any(Companies.class)))
                 .thenReturn(TestDataMaker.makeCompany());
-        when(userService.createUser(any(Users.class))).thenReturn(TestDataMaker.makeUser().getId());
+        when(userService.createUser(any(Users.class))).thenReturn(TestDataMaker.makeUsers().getId());
         registrationService.createCompanyAndUser(TestDataMaker.makeRegistration());
         verify(companyRepository, times(1)).save(any(Companies.class));
         verify(userService, times(1)).createUser(any(Users.class));

@@ -1,6 +1,5 @@
 package com.seller.panel.service;
 
-import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.handler.MessageHandler;
 import com.seller.panel.model.Permissions;
 import com.seller.panel.model.Roles;

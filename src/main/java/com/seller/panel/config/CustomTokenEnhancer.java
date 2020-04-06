@@ -3,6 +3,7 @@ package com.seller.panel.config;
 import com.seller.panel.model.Companies;
 import com.seller.panel.model.Users;
 import com.seller.panel.repository.UserRepository;
+import com.seller.panel.util.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -26,7 +27,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
                 ((UserDetails) oAuth2Authentication.getPrincipal()).getUsername());
         Companies company = user.getCompany();
         final Map<String, Object> additionalInfo = new HashMap<>();
-        additionalInfo.put("companyId", company.getId());
+        additionalInfo.put(AppConstants.COMPANY_ID, company.getId());
         additionalInfo.put("companyName", company.getName());
         additionalInfo.put("id", user.getId());
         additionalInfo.put("name", user.getName());

@@ -1,7 +1,6 @@
 package com.seller.panel.service;
 
 import com.seller.panel.data.TestDataMaker;
-import com.seller.panel.exception.SellerPanelException;
 import com.seller.panel.model.Users;
 import com.seller.panel.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;

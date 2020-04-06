@@ -1,6 +1,5 @@
 package com.seller.panel.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seller.panel.data.TestDataMaker;
 import com.seller.panel.dto.JoinRequest;
 import com.seller.panel.util.AppConstants;

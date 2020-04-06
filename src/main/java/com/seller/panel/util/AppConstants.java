@@ -1,5 +1,7 @@
 package com.seller.panel.util;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 public final class AppConstants {
 
     private AppConstants() {
@@ -25,6 +27,9 @@ public final class AppConstants {
     public static final String BEARER = "bearer ";
     public static final String AUTHORIZATION = "authorization";
     public static final String TOKEN = "token";
+    public static final String COMPANY_ID = "companyId";
+    public static final Integer DEFAULT_PAGE = NumberUtils.INTEGER_ZERO;
+    public static final Integer DEFAULT_SIZE = 40;
 
 
 }

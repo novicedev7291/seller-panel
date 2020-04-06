@@ -1,15 +1,16 @@
 package com.seller.panel.service;
 
-import com.seller.panel.dto.User;
 import com.seller.panel.model.Users;
 import com.seller.panel.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class UserService extends BaseService {
@@ -34,13 +35,15 @@ public class UserService extends BaseService {
         return userRepository.save(user).getId();
     }
 
-    public User findUserByIdAndCompanyId(Long id, Long companyId) {
+    public Users findUserByIdAndCompanyId(Long id, Long companyId) {
         Users user = userRepository.findByIdAndCompanyId(id, companyId);
         if(user == null)
             throw getException("SP-5");
-        User response = new User();
-        BeanUtils.copyProperties(user, response);
-        return response;
+        return user;
+    }
+
+    public List<Users> findAllUsersByCompanyIdAndPageAndSize(Long companyId, Integer page, Integer size) {
+        return userRepository.findAllByCompanyIdOrderByUpdatedOnDesc(companyId, PageRequest.of(page, size));
     }
 
 }

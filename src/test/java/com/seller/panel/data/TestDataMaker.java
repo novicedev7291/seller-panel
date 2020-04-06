@@ -1,8 +1,13 @@
 package com.seller.panel.data;
 
 import com.github.javafaker.Faker;
-import com.seller.panel.dto.*;
-import com.seller.panel.model.*;
+import com.seller.panel.dto.Registration;
+import com.seller.panel.dto.RegistrationRequest;
+import com.seller.panel.dto.UserRequest;
+import com.seller.panel.model.Companies;
+import com.seller.panel.model.Permissions;
+import com.seller.panel.model.Roles;
+import com.seller.panel.model.Users;
 import com.seller.panel.util.AppConstants;
 import com.seller.panel.util.EndPointConstants;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -129,15 +134,9 @@ public class TestDataMaker {
         return request;
     }
 
-    public static User makeUser() {
-        User user = new User();
-        BeanUtils.copyProperties(makeUsers(), user);
-        return user;
-    }
-
     public static Map<String, Object> makeAdditionalInfo() {
         Map<String, Object> additionalInfo = new HashMap<>();
-        additionalInfo.put("companyId", NumberUtils.LONG_ONE);
+        additionalInfo.put(AppConstants.COMPANY_ID, NumberUtils.LONG_ONE);
         return additionalInfo;
     }
 

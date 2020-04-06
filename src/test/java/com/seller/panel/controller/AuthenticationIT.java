@@ -4,7 +4,6 @@ import com.seller.panel.data.TestDataMaker;
 import com.seller.panel.util.EndPointConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.http.MediaType;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.event.annotation.BeforeTestClass;

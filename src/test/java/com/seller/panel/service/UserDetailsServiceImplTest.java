@@ -28,7 +28,7 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
     @Test
     public void shouldThrowInvalidUsernameOrPasswordForNoUser(){
         when(userRepository.findByEmail(TestDataMaker.EMAIL1)).thenReturn(null);
-        when(messageHandler.getMessage("SP-1")).thenReturn("Invalid username or password");
+        when(messageHandler.getMessage("SP-1")).thenReturn("Invalid credentials");
         Assertions.assertThrows(OAuth2Exception.class, () -> {
             userDetailsService.loadUserByUsername(TestDataMaker.EMAIL1);
         });
@@ -43,7 +43,7 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
         Users user = TestDataMaker.makeUsers();
         user.setActive(false);
         when(userRepository.findByEmail(TestDataMaker.EMAIL1)).thenReturn(user);
-        when(messageHandler.getMessage("SP-1")).thenReturn("Invalid username or password");
+        when(messageHandler.getMessage("SP-1")).thenReturn("Invalid credentials");
         Assertions.assertThrows(OAuth2Exception.class, () -> {
             userDetailsService.loadUserByUsername(TestDataMaker.EMAIL1);
         });

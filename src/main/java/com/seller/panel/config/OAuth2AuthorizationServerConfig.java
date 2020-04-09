@@ -92,7 +92,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 }
             } else if (e instanceof OAuth2Exception) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new CustomOAuthException
-                        (messageHandler.getMessage("SP-8")));
+                        (messageHandler.getMessage("SP-1")));
             } else {
                 throw e;
             }

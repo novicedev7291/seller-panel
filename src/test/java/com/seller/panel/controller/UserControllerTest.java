@@ -43,12 +43,12 @@ public class UserControllerTest extends BaseControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         when(this.request.getAttribute(AppConstants.ADDITIONAL_INFO)).thenReturn(new HashMap<>());
-        when(exceptionHandler.getException("SP-9")).thenReturn(new SellerPanelException("Company not found in access token"));
+        when(exceptionHandler.getException("SP-8")).thenReturn(new SellerPanelException("Company not found in access token"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             userController.findUserById(NumberUtils.LONG_ONE);
         });
         verify(this.request, times(1)).getAttribute(AppConstants.ADDITIONAL_INFO);
-        verify(exceptionHandler, times(1)).getException("SP-9");
+        verify(exceptionHandler, times(1)).getException("SP-8");
         verifyNoMoreInteractions(this.request);
         verifyNoMoreInteractions(exceptionHandler);
     }

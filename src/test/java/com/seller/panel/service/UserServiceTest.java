@@ -34,7 +34,7 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void shouldInvalidateUsernameAndPasswordForWrongUsername() {
         when(userRepository.findByEmail(TestDataMaker.EMAIL1)).thenReturn(null);
-        when(exceptionHandler.getException("SP-1")).thenReturn(new SellerPanelException("Invalid username or password"));
+        when(exceptionHandler.getException("SP-1")).thenReturn(new SellerPanelException("Invalid credentials"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             userService.authenticate(TestDataMaker.EMAIL1, TestDataMaker.PASSWORD);
         });
@@ -47,7 +47,7 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void shouldInvalidateUsernameAndPasswordForWrongPassword() {
         when(userRepository.findByEmail(TestDataMaker.EMAIL1)).thenReturn(TestDataMaker.makeUsers());
-        when(exceptionHandler.getException("SP-1")).thenReturn(new SellerPanelException("Invalid username or password"));
+        when(exceptionHandler.getException("SP-1")).thenReturn(new SellerPanelException("Invalid credentials"));
         Assertions.assertThrows(SellerPanelException.class, () -> {
             userService.authenticate(TestDataMaker.EMAIL1, TestDataMaker.WRONG_PASSWORD);
         });
